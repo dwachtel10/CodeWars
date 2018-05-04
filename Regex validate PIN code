@@ -1,0 +1,18 @@
+//Code that takes an input string and returns true only if it is a 4 or 6 digit string of numbers only
+
+using System;
+using System.Text.RegularExpressions;
+
+
+public class Kata
+{
+  public static bool ValidatePin(string pin)
+  {
+  Regex criteria = new Regex(@"^(\d{4}|\d{6})$");
+   return criteria.IsMatch(pin);
+    
+           
+    
+    
+  }
+}
