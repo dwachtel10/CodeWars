@@ -1,0 +1,13 @@
+//Instructions: Given an array of integers your solution should find the smallest integer
+//Using Linq may not have been in the spirit of this exercise.
+
+using System;
+using System.Linq;
+
+public class Kata 
+{
+    public static int FindSmallestInt(int[] args) 
+    {
+     return (args.Min());
+    }
+}
