@@ -1,0 +1,50 @@
+//Instructions: Remove a exclamation mark from the end of string. 
+//For a beginner kata, you can assume that the input data is always a string, no need to verify it.
+
+//This is an extremely clunky solution but I think re-learning loop logic like this is important.
+using System;
+
+public class Kata
+{
+  public static string Remove(string s)
+  {
+  int stringLength = s.Length;
+  string endString = string.Empty;
+  
+      foreach(char c in s)
+      {  
+      //check that it's not the last character
+        if (endString.Length != stringLength -1)
+          {
+           endString += c; 
+          }
+          //if it is the last character, check if it's !
+          else if((endString.Length == stringLength -1) && (c != '!'))
+          {
+          endString += c;
+          }
+      }
+    return endString;
+  }
+}
+
+//provided tests
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test, Description("It should work for basic tests")]
+    public void SampleTest()
+    {
+      Assert.AreEqual("Hi", Kata.Remove("Hi!"));
+      Assert.AreEqual("Hi!!", Kata.Remove("Hi!!!"));
+      Assert.AreEqual("!Hi", Kata.Remove("!Hi"));
+      Assert.AreEqual("!Hi", Kata.Remove("!Hi!"));
+      Assert.AreEqual("Hi! Hi", Kata.Remove("Hi! Hi"));
+      Assert.AreEqual("Hi", Kata.Remove("Hi"));
+    }
+  }
+}
