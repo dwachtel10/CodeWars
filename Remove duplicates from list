@@ -1,0 +1,45 @@
+//Instructions: Define a function that removes duplicates from an array of numbers and returns it as a result.
+//The order of the sequence has to stay the same.
+
+using System;
+using System.Linq;
+using System.Collections;
+//not elegant.  Need to get used to collections and LINQ capabilities again.
+namespace Solution
+{
+  public static class Program
+  {
+    public static int[] distinct(int[] a)
+    {
+      ArrayList newArray = new ArrayList();
+      var results = a.Distinct();
+      foreach(int n in results)
+      {
+        newArray.Add(n);
+      }
+      int[] finalArray = newArray.OfType<int>().ToArray();
+      return finalArray;
+    }
+  }
+}
+
+//tests, provided for later clarification
+/*
+namespace Solution
+{
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void MyTest()
+    {
+      Assert.AreEqual(new int[]{1}, Program.distinct(new int[]{1}));
+      Assert.AreEqual(new int[]{1,2}, Program.distinct(new int[]{1,2}));
+      Assert.AreEqual(new int[]{1,2}, Program.distinct(new int[]{1,1,2}));
+    }
+  }
+}
+*/
