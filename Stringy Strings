@@ -1,0 +1,36 @@
+//Instructions: write me a function stringy that takes a size and returns a string of alternating '1s' and '0s'.
+//the string should start with a 1.
+using System;
+public class Kata
+{
+  public static string Stringy(int size)
+  {
+    string final = String.Empty;
+    for(int i = 0; i < size; i++)
+      {
+        if(i % 2 == 0){
+          final += 1;}
+       else{
+          final += 0;
+        }
+      }
+     return final;
+  }
+}
+
+//provided tests
+using NUnit.Framework;
+using System;
+
+[TestFixture]
+public class Tests
+{
+  [Test]
+  [TestCase(1, Result="1")]
+  [TestCase(2, Result="10")]
+  [TestCase(10, Result="1010101010")]
+  public static string FixedTest(int size)
+  {
+    return Kata.Stringy(size);
+  }
+}
