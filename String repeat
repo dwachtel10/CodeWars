@@ -1,0 +1,33 @@
+//Instructions: Write a function called repeatStr which repeats the given string string exactly n times.
+namespace Solution
+{
+  public static class Program
+  {
+    public static string repeatStr(int n, string s)
+    {
+      string final = "";
+      for(int i = 0; i < n; i++)
+        {
+          final += s;
+        }
+      return final;
+    }
+  }
+}
+
+//tests
+namespace Solution
+{
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void MyTest()
+    {
+      Assert.AreEqual("***", Program.repeatStr(3, "*"));
+    }
+  }
+}
