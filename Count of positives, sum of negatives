@@ -1,0 +1,51 @@
+//8 kyu
+//Instruction: Given an array of integers.
+//Return an array, where the first element is the count of positives numbers and the second element is sum of negative numbers.
+//If the input array is empty or null, return an empty array:
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Kata
+{
+    public static int[] CountPositivesSumNegatives(int[] input)
+    {
+      
+      int posCount = 0;
+      int negSum = 0;
+      foreach(int i in input)
+        {
+          if (i > 0)
+            {posCount += 1;}
+          else
+            {negSum += i;}
+        }
+      int[] final = new int[] {posCount, negSum};
+      return final;
+    }
+}
+
+//tests
+using System;
+using NUnit.Framework;
+
+[TestFixture]
+public class SumTests
+{
+    [Test]
+    public void CountPositivesSumNegatives_BasicTest()
+    {
+        int[] expectedResult = new int[] {10, -65};
+    
+        Assert.AreEqual(expectedResult, Kata.CountPositivesSumNegatives(new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14, -15}));
+    }
+    
+    [Test]
+    public void CountPositivesSumNegatives_InputWithZeroes()
+    {
+        int[] expectedResult = new int[] {8, -50};
+    
+        Assert.AreEqual(expectedResult, Kata.CountPositivesSumNegatives(new[] {0, 2, 3, 0, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14}));
+    }
+}
