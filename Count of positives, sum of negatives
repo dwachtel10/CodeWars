@@ -14,6 +14,7 @@ public class Kata
       
       int posCount = 0;
       int negSum = 0;
+      if (input != null && input.Length != 0){
       foreach(int i in input)
         {
           if (i > 0)
@@ -23,6 +24,12 @@ public class Kata
         }
       int[] final = new int[] {posCount, negSum};
       return final;
+      } 
+      else
+      { 
+      int[] final = new int[]{};
+      return final;
+      }
     }
 }
 
