@@ -9,12 +9,8 @@ using System;
 using System.Linq;
 public class Kata
 {
-    public static bool Feast(string beast, string dish)
-    {
-    //Nailed it!
-      return ((beast.First() == dish.First()) && (beast.Last() == dish.Last())) ? true: false;
+    public static bool Feast(string beast, string dish) => ((beast.First() == dish.First()) && (beast.Last() == dish.Last())) ? true: false;
        
-    }
 }
 
 //test
