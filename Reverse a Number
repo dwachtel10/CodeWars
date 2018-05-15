@@ -1,0 +1,53 @@
+//7 kyu
+
+//Instructions
+//Given a number, write a function to output its reverse digits. (e.g. given 123 the answer is 321)
+//Numbers should preserve their sign; i.e. a negative number should still be negative when reversed.
+
+//I hate this one.  I basically brute-forced my way through it.  Oh well.  An ugly solution is better than a broken solution.
+
+using System;
+using System.Linq;
+
+
+public class Kata
+{
+    public int ReverseNumber(int n)
+    {
+    int abs = Math.Abs(n);
+    string number = abs.ToString();
+    char[] charArray = number.ToCharArray();
+    Array.Reverse(charArray);
+    string reverseString = new string(charArray);
+    int reverse = int.Parse(reverseString);
+    if (n >= 0) {
+    Console.WriteLine(reverse);
+      return reverse;
+      } else
+      { 
+      Console.WriteLine(reverse);
+      return -(reverse);
+      }
+        
+    }
+}
+
+//tests
+using System;
+using System.Linq;
+using NUnit.Framework;
+
+
+[TestFixture]
+public class KataTestf
+{
+    [Test]
+    public void _0_BasicTests()
+    {
+        var kata = new Kata();
+
+        Assert.AreEqual(321, kata.ReverseNumber(123));
+        Assert.AreEqual(-321, kata.ReverseNumber(-123));
+        Assert.AreEqual(0, kata.ReverseNumber(0));
+    }
+}
