@@ -1,0 +1,56 @@
+//8 kyu
+//Instructions: Remove n exclamation marks in the sentence from left to right. n is positive integer.
+
+
+public class Kata
+{
+  public static string Remove(string s, int n)
+  {
+    int counter = 0;
+    string trimmed = "";
+    foreach(char c in s)
+      {
+      if (c != '!')
+        {
+        trimmed += c;
+        }
+      else if (counter < n && c == '!')
+        {
+          
+          counter += 1;
+        }
+      else 
+        {
+          trimmed += c;
+        }
+      }
+      return trimmed;
+  }
+}
+
+//tests
+
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test, Description("It should work for basic tests")]
+    public void SampleTest()
+    {
+      Assert.AreEqual("Hi", Kata.Remove("Hi!", 1));
+      Assert.AreEqual("Hi", Kata.Remove("Hi!", 100));
+      Assert.AreEqual("Hi!!", Kata.Remove("Hi!!!", 1));
+      Assert.AreEqual("Hi", Kata.Remove("Hi!!!", 100));
+      Assert.AreEqual("Hi", Kata.Remove("!Hi", 1));
+      Assert.AreEqual("Hi!", Kata.Remove("!Hi!", 1));
+      Assert.AreEqual("Hi", Kata.Remove("!Hi!", 100));
+      Assert.AreEqual("!!Hi !!hi!!! !hi", Kata.Remove("!!!Hi !!hi!!! !hi", 1));
+      Assert.AreEqual("Hi !!hi!!! !hi", Kata.Remove("!!!Hi !!hi!!! !hi", 3));
+      Assert.AreEqual("Hi hi!!! !hi", Kata.Remove("!!!Hi !!hi!!! !hi", 5));
+      Assert.AreEqual("Hi hi hi", Kata.Remove("!!!Hi !!hi!!! !hi", 100));
+    }
+  }
+}
