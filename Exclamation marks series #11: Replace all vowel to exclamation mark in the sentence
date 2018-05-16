@@ -1,0 +1,32 @@
+//8 kyu
+
+//Instructions 
+
+using System;
+using System.Text.RegularExpressions;
+
+public static class Kata
+{
+  public static string Replace(string s) => Regex.Replace(s, @"[aeiouAEIOU]", "!");
+  
+}
+
+//tests
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test, Description("Basic Tests")]
+    public void BasicTest()
+    {
+      Assert.AreEqual("H!!", Kata.Replace("Hi!"));
+      Assert.AreEqual("!H!! H!!", Kata.Replace("!Hi! Hi!"));
+      Assert.AreEqual("!!!!!", Kata.Replace("aeiou"));
+      Assert.AreEqual("!BCD!", Kata.Replace("ABCDE"));
+    }
+  }
+}
