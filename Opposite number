@@ -1,0 +1,38 @@
+//8 kyu
+//Instructions: Very simple, given a number, find its opposite. But can you do it in 1 line of code and without any conditionals?
+
+using System;
+
+public class Kata
+    {
+        public  static int Opposite(int number) => -number;
+    }
+    
+//test
+
+using NUnit.Framework;
+    
+    [TestFixture]
+    public class MyTest
+    {
+        [Test]
+        public void Test_1()
+        {   
+            Assert.AreEqual(-1, Kata.Opposite(1));
+        }
+        [Test]
+        public void Test_2()
+        {
+            Assert.AreEqual(0, Kata.Opposite(0));
+        }
+        [Test]
+        public void Test_3()
+        {
+            Assert.AreEqual(-3000, Kata.Opposite(3000));
+        }
+        [Test]
+        public void Test_4()
+        {
+            Assert.AreEqual(58000, Kata.Opposite(-58000));
+        }
+    }
