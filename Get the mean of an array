@@ -1,0 +1,34 @@
+//8 kyu
+//Instructions: Return the average of the given array rounded down to its nearest integer.
+
+using System.Linq;
+using System.Collections.Generic;
+using System;
+
+public class Kata
+{
+  public static int GetAverage(int[] marks)
+  {
+    int total = 0;
+    foreach(int n in marks)
+      {
+      total += n;
+      }
+    return total / marks.Length;
+  }
+}
+
+//test
+
+using NUnit.Framework;
+
+public class Tests
+{
+  [Test]
+  [TestCase(new int[]{2,2,2,2}, Result= 2)]
+  [TestCase(new int[]{5,10}, Result= 7)]
+  public static int FixedTest(int[] marks)
+  {
+    return Kata.GetAverage(marks);
+  }
+}
