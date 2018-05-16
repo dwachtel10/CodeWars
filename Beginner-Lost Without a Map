@@ -1,0 +1,39 @@
+//8 kyu
+//Instructions: Given and array of integers (x), return the array with each value doubled.
+
+
+using System;
+using System.Collections.Generic;
+public class Kata
+{
+  public static int[] Maps(int[] x)
+  {
+    int[] doubled = new int[x.Length];
+    int i = 0;
+    foreach(int n in x)
+      {
+        doubled[i] = n * 2;
+        i++;
+      }
+    return doubled;
+  }
+}
+
+//test
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class KataTests
+  {
+    [Test]
+    public void BasicTests()
+    {
+      Assert.AreEqual(new [] { 2, 4, 6 }, Kata.Maps(new [] { 1, 2, 3 }));
+      Assert.AreEqual(new [] { 8, 2, 2, 2, 8 }, Kata.Maps(new [] { 4, 1, 1, 1, 4 }));
+      Assert.AreEqual(new [] { 4, 4, 4, 4, 4, 4 }, Kata.Maps(new [] { 2, 2, 2, 2, 2, 2 }));
+    }
+  }
+}
