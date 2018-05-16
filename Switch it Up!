@@ -1,0 +1,69 @@
+//8 kyu
+//Instructions:When provided with a number between 0-9, return it in words.
+//Input :: 1
+//Output :: "One".
+//Try using "Switch" statements.
+
+public class Kata
+{
+  public static string SwitchItUp(int number)
+  {
+    string value = string.Empty;
+    switch (number)
+    {
+      case 0:
+        value= "Zero";
+        break;
+      case 1:
+        value = "One";
+        break;
+      case 2:
+        value = "Two";
+        break;
+      case 3:
+        value = "Three";
+        break;
+      case 4:
+        value = "Four";
+        break;
+      case 5:
+        value = "Five";
+        break;
+      case 6:
+        value = "Six";
+        break;
+      case 7:
+        value = "Seven";
+        break;
+      case 8:
+        value = "Eight";
+        break;
+      case 9:
+        value = "Nine";
+        break;
+      default:
+        value = "Sorry!";
+        break;
+      }
+      return value;
+  }
+}
+
+//test
+namespace Solution
+{
+  using NUnit.Framework;
+  using System;
+  
+  [TestFixture]
+  public class KataTests
+  {
+    [Test]
+    public void BasicTests()
+    {
+      Assert.AreEqual("One", Kata.SwitchItUp(1));
+      Assert.AreEqual("Three", Kata.SwitchItUp(3));
+      Assert.AreEqual("Five", Kata.SwitchItUp(5));
+    }
+  }
+}
