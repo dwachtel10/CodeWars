@@ -1,0 +1,46 @@
+//8 kyu
+//Instructions: Consider an array of sheep where some sheep may be missing from their place. 
+//We need a function that counts the number of sheep present in the array (true means present).
+
+using System;
+
+public static class Kata
+{
+  public static int CountSheeps(bool[] sheeps)
+  {
+    int sheepCount = 0;
+    foreach(var entry in sheeps)
+      {
+      if (entry == true)
+        { sheepCount+=1;}
+      }
+    return sheepCount;
+  }
+}
+
+//tests
+using System;
+using NUnit.Framework;
+
+[TestFixture]
+public class CountSheepsTests {
+
+  [Test]
+  public void NumberOfTruesInArrayReturned() {
+    var sheeps = new bool[] { true, false, true };
+    
+    Assert.AreEqual(2, Kata.CountSheeps(sheeps));
+    
+    sheeps = new bool[] { true, false, true, true, false, true, true, false, true };
+    
+    Assert.AreEqual(6, Kata.CountSheeps(sheeps));
+         
+    sheeps = new bool[] { true, true, true, true, true, true, true, true, true };
+    
+    Assert.AreEqual(9, Kata.CountSheeps(sheeps));
+    
+    sheeps = new bool[] { false, false, false, false, false, false, false, false, false, false, false, false };
+    
+    Assert.AreEqual(0, Kata.CountSheeps(sheeps));
+  }
+}
