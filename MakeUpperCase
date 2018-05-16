@@ -1,0 +1,25 @@
+//8 kyu
+//Instruction: Write function makeUpperCase.
+
+//Note: What kind of instruction is that?
+  using System;
+  
+  public class Kata
+  {
+        public static string MakeUpperCase(string str) => str.ToUpper();
+  }
+  
+  //tests
+  namespace Learning {
+  using NUnit.Framework;
+  using System;
+  [TestFixture]
+  public class MakeUpperCaseTest
+  {
+    [Test]
+    public void BasicTest()
+    {
+       Assert.AreEqual("HELLO", Kata.MakeUpperCase("hello"));    
+    }
+  }    
+}
