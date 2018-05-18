@@ -1,0 +1,11 @@
+//8 kyu
+//Instructions: Write a method sum (sum_array in python, SumArray in C#) that takes an array of numbers and returns the sum of the numbers.
+
+//This was intended to be a beginner loops exercise.  Still, any practice is good practice!
+
+using System.Linq;
+public class Kata
+{
+  public static double SumArray(double[] array) => array.Sum();
+  
+}
