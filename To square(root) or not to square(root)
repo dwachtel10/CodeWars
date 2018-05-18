@@ -1,0 +1,45 @@
+//8 kyu
+//Instructions: Write a method, that will get an integer array as parameter and will process every number from this array.
+//If the number has an integer square root, take this, otherwise square the number.
+
+//What an ugly solution!
+using System;
+public class Kata
+{
+  public static int[] SquareOrSquareRoot(int[] array)
+  {
+    int[] squares = new int[array.Length];
+    int i = 0;
+    foreach(int n in array)
+      {
+        if (Math.Sqrt(Convert.ToDouble(n)) % 1 !=0)
+        {squares[i] =(n*n);}
+          else
+          {squares[i] = Convert.ToInt32((Math.Sqrt(Convert.ToDouble(n))));}
+        i++;
+      }
+    return squares;
+  }
+}
+
+//test
+using NUnit.Framework;
+
+public class KataTests
+{
+  [Test]
+  public void BasicTests()
+  {
+    var input = new int[] { 4, 3, 9, 7, 2, 1 };
+    var expected = new int[] { 2, 9, 3, 49, 4, 1 };
+    Assert.AreEqual(string.Join(",", expected), string.Join(",", Kata.SquareOrSquareRoot(input)));  
+
+    input = new int[] { 100, 101, 5, 5, 1, 1 };
+    expected = new int[] { 10, 10201, 25, 25, 1, 1};
+    Assert.AreEqual(string.Join(",", expected), string.Join(",", Kata.SquareOrSquareRoot(input)));  
+    
+    input = new int[] { 1, 2, 3, 4, 5, 6 };
+    expected = new int[] { 1, 4, 9, 2, 25, 36};
+    Assert.AreEqual(string.Join(",", expected), string.Join(",", Kata.SquareOrSquareRoot(input)));  
+  }  
+}
