@@ -1,0 +1,32 @@
+//8 kyu
+//Instructions: The cockroach is one of the fastest insects. 
+//Write a function which takes its speed in km per hour and returns it in cm per second, rounded down to the integer (= floored).
+
+  using System;
+  public class Cockroach
+  {
+    public static int CockroachSpeed(double x) => Convert.ToInt32(Math.Floor(x * 27.7778));
+  }
+  
+//test
+
+using NUnit.Framework;
+  using System;
+  
+  [TestFixture]
+  public class CockTest
+  {
+    [Test]
+    public void SimpleTests()
+    {
+     Random r = new Random();
+        
+      for(int d = 0; d < 100; d++){
+        double i = r.NextDouble();
+        
+        Assert.AreEqual((int)(i / 0.036), Cockroach.CockroachSpeed(i), "Failed at Cockroach(" + i + ")");
+      }
+
+     }    
+
+  }
