@@ -1,0 +1,53 @@
+//8 kyu
+//Instructions:There was a test in your class and you passed it. Congratulations!
+//But you're an ambitious person. You want to know if you're better than the average student in your class.
+//You got an array with your colleges' points. Now calculate the average to your points!
+//Return True if you're better, else False!
+
+using System;
+using System.Linq;
+public class Kata
+{
+  public static bool BetterThanAverage(int[] ClassPoints, int YourPoints) => YourPoints > ClassPoints.Average();
+  
+}
+
+//test
+using System;
+using System.Linq;
+using NUnit.Framework;
+using System.Collections.Generic;
+
+[TestFixture]
+public class Tests
+{
+  [Test]
+  [TestCase(new int[]{2,3}, 5, Result=true)]
+  [TestCase(new int[]{100, 40, 34, 57, 29, 72, 57, 88}, 75, Result=true)]
+  [TestCase(new int[]{12,23,34,45,56,67,78,89,90}, 69, Result=true)]
+  [TestCase(new int[]{100,90}, 11, Result=false)]
+  public static bool FixedTest(int[] arr, int num)
+  {
+    return Kata.BetterThanAverage(arr, num);
+  }
+  
+  [Test]
+  public static void RandomTest()
+  {
+    List<int> list = new List<int>();
+    Random r = new Random();
+    for(int i = 0; i < 50; i++)
+    {
+      list.Add(r.Next(100));
+    }
+    int x = r.Next(100);
+    Assert.AreEqual(Solution(list.ToArray(), x), Kata.BetterThanAverage(list.ToArray(), x));
+  }
+  
+  private static bool Solution(int[] ClassPoints, int YourPoints)
+  {
+    List<int> points = new List<int>(ClassPoints);
+    points.Add(YourPoints);
+    return YourPoints > points.Average();
+  }
+}
