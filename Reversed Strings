@@ -1,0 +1,56 @@
+//8 kyu
+//Instructions: Complete the solution so that it reverses the string value passed into it.
+
+using System;
+using System.Linq;
+public static class Kata
+{
+  public static string Solution(string str)
+  {
+  return new string(str.ToCharArray().Reverse().ToArray());
+  }
+}
+
+//test
+namespace Solution
+{
+  using NUnit.Framework;
+  using System;
+  using System.Linq;
+  
+  [TestFixture]
+  public class Tests
+  {
+    private static Random rnd = new Random();
+  
+    private static string solution(string str) => String.Concat(str.Reverse());
+    
+    private static string chars = "abcdefghijklmnopqrstuvwxyz    ,./';123456789!?";
+  
+    [Test]
+    public void SubmitTests()
+    {
+      Assert.AreEqual("dlrow", Kata.Solution("world"));
+      Assert.AreEqual("olleh", Kata.Solution("hello"));
+      Assert.AreEqual("", Kata.Solution(""));
+      Assert.AreEqual("h", Kata.Solution("h"));
+      Assert.AreEqual("selur srawedoC", Kata.Solution("Codewars rules"));
+    }
+    
+    [Test]
+    public void RandomTests()
+    {
+      const int Tests = 100;
+      
+      for (int i = 0; i < Tests; ++i)
+      {
+        string str = String.Concat(new char[rnd.Next(1, 100)].Select(_ => chars[rnd.Next(0, chars.Length)]));
+        
+        string expected = solution(str);
+        string actual = Kata.Solution(str);
+        
+        Assert.AreEqual(expected, actual);
+      }
+    }
+  }
+}
