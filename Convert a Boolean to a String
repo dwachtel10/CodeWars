@@ -1,0 +1,28 @@
+//8 kyu
+//Instructions:boolean_to_string is a function whose input is either true or false, 
+//and whose output is the string representation of the input, either "true" or "false".
+
+using System;
+
+public class kata
+{
+  public static string boolean_to_string(bool b) => b ? "True" : "False";
+}
+
+//tests
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void MyTest()
+    {
+      Assert.AreEqual("True", kata.boolean_to_string(true));
+      Assert.AreEqual("False", kata.boolean_to_string(false));
+    }
+  }
+}
