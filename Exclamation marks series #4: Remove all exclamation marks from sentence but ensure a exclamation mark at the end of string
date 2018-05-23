@@ -1,0 +1,33 @@
+//8 kyu
+//Instructions: Remove all exclamation marks from sentence but ensure a exclamation mark at the end of string.
+
+using System;
+using System.Text.RegularExpressions;
+public class Kata
+{
+  public static string Remove(string s) => Regex.Replace(s, @"(\!)", "") + "!";
+}
+
+//test
+
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+  // TODO: Replace examples and use TDD development by writing your own tests
+
+  [TestFixture]
+  public class Test
+  {
+    [Test]
+    public void SampleTest()
+    {
+      Assert.AreEqual("Hi!", Kata.Remove("Hi!"));
+      Assert.AreEqual("Hi!", Kata.Remove("Hi!!!"));
+      Assert.AreEqual("Hi!", Kata.Remove("!Hi"));
+      Assert.AreEqual("Hi!", Kata.Remove("!Hi!"));
+      Assert.AreEqual("Hi Hi!", Kata.Remove("Hi! Hi!"));
+      Assert.AreEqual("Hi!", Kata.Remove("Hi"));
+    }
+  }
+}
