@@ -1,0 +1,65 @@
+//8 kyu
+//Instructions:
+//Complete the function that takes a non-negative integer n as input, 
+//and returns a list of all the powers of 2 with the exponent ranging from 0 to n (inclusive).
+
+using System.Numerics;
+using System;
+using System.Collections.Generic;
+public class Kata
+{
+  public static BigInteger[] PowersOfTwo(int n)
+  {
+    List<BigInteger> bilist = new List<BigInteger>();
+    
+    
+    for (int i = 0; i <= n; ++i)
+      {
+        bilist.Add((BigInteger)Math.Pow(2, i));
+      }
+      
+    BigInteger[] iarray = bilist.ToArray();
+    return iarray;
+  }
+  
+}
+
+//test
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+  using System.Collections.Generic;
+  using System.Numerics;
+  using System.Linq;
+
+  [TestFixture]
+  public class KataTests
+  {
+    [Test]
+    public void BasicTests()
+    {
+      Assert.AreEqual(new BigInteger[] { 1 }, Kata.PowersOfTwo(0));
+      Assert.AreEqual(new BigInteger[] { 1, 2 }, Kata.PowersOfTwo(1));
+      Assert.AreEqual(new BigInteger[] { 1, 2, 4, 8, 16 }, Kata.PowersOfTwo(4));
+    }
+    
+    [Test]
+    public void RandomTests()
+    {
+      var rand = new Random();
+      
+      Func<int, BigInteger[]> myPowersOfTwo = delegate (int n)
+      {
+        return Enumerable.Range(0, n + 1).Select(a => BigInteger.Pow(2, a)).ToArray();
+      };
+      
+      var shuffle = Enumerable.Range(0,201).OrderBy(a => rand.Next(-1,2));
+      
+      shuffle.ToList().ForEach(n => 
+      {
+        Assert.AreEqual(myPowersOfTwo(n), Kata.PowersOfTwo(n));        
+      });
+    }
+  }
+}
