@@ -1,0 +1,71 @@
+//8 kyu
+//Instructions:
+//Every day you rent the car costs $40. If you rent the car for 7 or more days, you get $50 off your total. 
+//Alternatively, if you rent the car for 3 or more days, you get $20 off your total.
+//Write a code that gives out the total amount for different days(d).
+
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void MyTest()
+    {
+      Assert.AreEqual("True", kata.boolean_to_string(true));
+      Assert.AreEqual("False", kata.boolean_to_string(false));
+    }
+  }
+}
+
+//test
+
+using System;
+using NUnit.Framework;
+
+[TestFixture]
+public static class RentalCarTests 
+{
+
+    private static void testing(int actual, int expected) 
+    {
+        Assert.AreEqual(expected, actual);
+    }
+   
+[Test]
+    public static void test1() 
+    {        
+        testing(RentalCar.RentalCarCost(1),40);
+        testing(RentalCar.RentalCarCost(2),80);
+        testing(RentalCar.RentalCarCost(3),100);
+        testing(RentalCar.RentalCarCost(4),140);
+        testing(RentalCar.RentalCarCost(5),180);
+        testing(RentalCar.RentalCarCost(6),220);
+        testing(RentalCar.RentalCarCost(7),230);
+        testing(RentalCar.RentalCarCost(8),270);
+        testing(RentalCar.RentalCarCost(9),310);
+        testing(RentalCar.RentalCarCost(10),350);    
+    }
+    
+    //-----------------------
+    public static int RentalCarCostSol(int d) {
+        if (d<3) return d*40;
+        if (d<7) return d*40-20;
+        return d*40-50;
+    }
+    //-----------------------
+    private static Random rnd = new Random();
+[Test]    
+    public static void RandomTest1() 
+    {
+        Console.WriteLine("Basic Random Tests");
+        for (int i = 0; i < 200; i++) 
+        { 
+            int n = rnd.Next(0, 5000);
+            testing(RentalCar.RentalCarCost(n), RentalCarCostSol(n));
+        }
+    }  
+}
