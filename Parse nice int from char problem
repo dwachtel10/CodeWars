@@ -1,0 +1,39 @@
+//8 kyu
+//Instructions:
+//Ask a small girl - "How old are you?". She always says strange things... Lets help her!
+//For correct answer program should return int from 0 to 9.
+//Assume test input string always valid and may look like "1 year old" or "5 years old", etc.. The first char is number only.
+
+//I feel like this was translated from another (human) language.
+using System;
+
+public class Kata
+{
+  public static int GetAge(string inputString) => Convert.ToInt32(inputString.Substring(0, 1));
+ 
+}
+
+//test
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class Test
+  {
+    [Test]
+    public void BasicTests()
+    {
+      Assert.AreEqual(0, Kata.GetAge("0 years old"));
+      Assert.AreEqual(1, Kata.GetAge("1 years old"));
+      Assert.AreEqual(2, Kata.GetAge("2 years old"));
+      Assert.AreEqual(3, Kata.GetAge("3 years old"));
+      Assert.AreEqual(4, Kata.GetAge("4 years old"));
+      Assert.AreEqual(5, Kata.GetAge("5 years old"));
+      Assert.AreEqual(6, Kata.GetAge("6 years old"));
+      Assert.AreEqual(7, Kata.GetAge("7 years old"));
+      Assert.AreEqual(8, Kata.GetAge("8 years old"));
+      Assert.AreEqual(9, Kata.GetAge("9 years old"));
+    }
+  }
+}
