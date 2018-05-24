@@ -1,0 +1,57 @@
+//7 kyu
+//Instructions:Create a function that returns the sum of the two lowest positive numbers given an array of minimum 4 integers. 
+//No floats or empty arrays will be passed.
+
+
+using System;
+using System.Linq;
+public static class Kata
+
+{
+	public static int sumTwoSmallestNumbers(int[] numbers) => numbers.OrderBy(num=>num).ElementAt(1) + numbers.Min();	
+}
+
+//tests
+
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+
+[TestFixture]
+public class ConverterTests
+{
+	[Test]
+	public void Test1()
+	{
+    int[] numbers = {5, 8, 12, 19, 22};
+		Assert.AreEqual(13, Kata.sumTwoSmallestNumbers(numbers));		
+	}
+  
+  [Test]
+	public void Test2()
+	{
+    int[] numbers = {15, 28, 4, 2, 43};
+		Assert.AreEqual(6, Kata.sumTwoSmallestNumbers(numbers));		
+	}
+  
+  [Test]
+	public void Test3()
+	{
+    int[] numbers = {3, 87, 45, 12, 7};
+		Assert.AreEqual(10, Kata.sumTwoSmallestNumbers(numbers));		
+	}
+  
+  [Test]
+	public void Test4()
+	{
+    int[] numbers = {23, 71, 33, 82, 1};
+		Assert.AreEqual(24, Kata.sumTwoSmallestNumbers(numbers));		
+	}
+  
+  [Test]
+	public void Test5()
+	{
+    int[] numbers = {52, 76, 14, 12, 4};
+		Assert.AreEqual(16, Kata.sumTwoSmallestNumbers(numbers));		
+	}
+}
