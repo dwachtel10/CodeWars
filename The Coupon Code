@@ -1,0 +1,78 @@
+//7 kyu
+//Instructions:
+//Write a function called checkCoupon to verify that a coupon is valid and not expired. If the coupon is good, return true. Otherwise, return false.
+//A coupon expires at the END of the expiration date. All dates will be passed in as strings in this format: "June 15, 2014"
+
+using System;
+
+public static class Kata
+{
+  public static bool CheckCoupon(string enteredCode, string correctCode, string currentDate, string expirationDate) => (enteredCode == correctCode && Convert.ToDateTime(currentDate) <= Convert.ToDateTime(expirationDate));
+  
+}
+
+//tests
+
+using System;
+using NUnit.Framework;
+
+[TestFixture]
+public class CouponCodeTest
+{
+  [Test]
+  public static void ValidCoupon()
+  {
+    Assert.AreEqual(true, Kata.CheckCoupon("123","123","September 5, 2014","October 1, 2014"));
+  }
+  
+  [Test]
+  public static void DoesNotMatchCorrectCode()
+  {
+    Assert.AreEqual(false, Kata.CheckCoupon("123a","123","September 5, 2014","October 1, 2014"));
+  }
+  
+  [Test]
+  public static void ExpiredCoupon()
+  {
+    Assert.AreEqual(false, Kata.CheckCoupon("12abcd3","12abcd3","January 5, 2014","January 1, 2014"));
+  }
+  
+  [Test]
+  public static void LastDayOfValidity()
+  {
+    Assert.AreEqual(true, Kata.CheckCoupon("123ablqc0","123ablqc0","July 5, 2000","July 5, 2000"));
+  }
+  
+  [Test]
+  public static void ExpirationInLaterYear()
+  {
+    Assert.AreEqual(true, Kata.CheckCoupon("abc","abc","November 8, 2013","November 5, 2014"));
+  }
+  
+  [Test]
+  public static void OldCouponButValid()
+  {
+    Assert.AreEqual(true, Kata.CheckCoupon("a12v564","a12v564","March 5, 1998","March 25, 1998"));
+  }
+  
+  [Test]
+  public static void RandomTests()
+  {
+    string aYeahWoo,bYeahWoo,cYeahWoo,dYeahWoo;
+    
+    for(int i = 0; i < 15; i++)
+    {
+      aYeahWoo=Helper.RandCode();
+      bYeahWoo=Helper.RandCode();
+      cYeahWoo=Helper.RandDate();
+      dYeahWoo=Helper.RandDate();
+      Assert.AreEqual(Helper.MasterCheckYeah(aYeahWoo,bYeahWoo,cYeahWoo,dYeahWoo), Kata.CheckCoupon(aYeahWoo,bYeahWoo,cYeahWoo,dYeahWoo));
+    }
+  }
+  
+  [Test]
+  public static void OneMoreValidCouponToBeSure()
+  {
+    Assert.AreEqual(true, Kata.CheckCoupon("0a12bc64","0a12bc64","March 6, 2005","March 5, 2006"));
+  }
+}
