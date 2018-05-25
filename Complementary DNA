@@ -1,0 +1,67 @@
+//7 kyu
+//Instructions:In DNA strings, symbols "A" and "T" are complements of each other, as "C" and "G". 
+//You have function with one side of the DNA; you need to get the other complementary side. 
+//DNA strand is never empty or there is no DNA at all.
+
+public class DnaStrand 
+    {
+        public static string MakeComplement(string dna)
+        {
+            string complement = "";
+            foreach(char c in dna)
+              {
+                if (c == 'A')
+                  { complement += "T";}
+                else if (c == 'T')
+                  { complement += "A";}
+                else if (c =='C')
+                  { complement += "G";}
+                else
+                  { complement += "C";}
+              }
+              return complement;
+        }
+    }
+    
+    //test
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class DnaStrandTest 
+    {
+        [TestCase]
+        public void test01()
+        {
+            Assert.AreEqual("TTTT", DnaStrand.MakeComplement("AAAA"));
+        }
+        [TestCase]
+        public void test02()
+        {
+            Assert.AreEqual("TAACG", DnaStrand.MakeComplement("ATTGC"));
+        }
+        [TestCase]
+        public void test03()
+        {
+            Assert.AreEqual("CATA", DnaStrand.MakeComplement("GTAT"));
+        }
+        [TestCase]
+        public void test04()
+        {
+            Assert.AreEqual("TTCC", DnaStrand.MakeComplement("AAGG"));
+        }
+        [TestCase]
+        public void test05()
+        {
+            Assert.AreEqual("GCGC", DnaStrand.MakeComplement("CGCG"));
+        }
+        [TestCase]
+        public void test06()
+        {
+            Assert.AreEqual("TAACG", DnaStrand.MakeComplement("ATTGC"));
+        }
+        [TestCase]
+        public void test07()
+        {
+            Assert.AreEqual("CATAGCTAGCTAGCTAGCTAATATAAAAGCTGCTCTAAATTTATATATATATATGCTCTCTTATGTCTATCTGTCTAAT", DnaStrand.MakeComplement("GTATCGATCGATCGATCGATTATATTTTCGACGAGATTTAAATATATATATATACGAGAGAATACAGATAGACAGATTA"));
+        }
+    }
