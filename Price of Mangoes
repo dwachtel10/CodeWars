@@ -1,0 +1,29 @@
+//8 kyu
+//Instructions: There's a "3 for 2" (or "2+1" if you like) offer on mangoes. 
+//For a given quantity and price (per mango), calculate the total cost of the mangoes.
+
+using System;
+
+public class Kata
+{
+  public static int Mango(int quantity, int price) => (int)((quantity - Math.Floor((double)(quantity/3))) * price);
+  
+}
+
+//tests
+namespace Solution
+{
+  using NUnit.Framework;
+  using System; 
+
+  [TestFixture]
+  public class KataTests
+  {
+    [Test]
+    public void BasicTests()
+    {
+      Assert.AreEqual(6, Kata.Mango(3, 3));
+      Assert.AreEqual(30, Kata.Mango(9, 5));
+    }
+  }
+}
