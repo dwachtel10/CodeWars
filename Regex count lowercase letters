@@ -1,0 +1,55 @@
+//8 kyu
+//Instructions: Your task is simply to count the total number of lowercase letters in a string.
+
+
+//looked this up
+using System; 
+using System.Text.RegularExpressions;
+
+public class Kata
+{
+  public static int LowercaseCountCheck(string s) => Regex.Matches(s, @"\p{Ll}").Count;
+}
+
+//tests
+using NUnit.Framework;
+using System;
+using System.Text.RegularExpressions;
+
+public class Tests
+{
+  [Test]
+  [TestCase("abc", Result=3)]
+  [TestCase("abcABC123", Result=3)]
+  [TestCase("abcABC123!@€£#$%^&*()_-+=}{[]|\':;?/>.<,~", Result=3)]
+  [TestCase("", Result=0)]
+  [TestCase("ABC123!@€£#$%^&*()_-+=}{[]|\':;?/>.<,~", Result=0)]
+  [TestCase("abcdefghijklmnopqrstuvwxyz", Result=26)]
+  public static int FixedTest(string str)
+  {
+    return Kata.LowercaseCountCheck(str);
+  }
+  
+  [Test]
+  public static void RandomTest([Random(0,100,100)]int len)
+  {
+    string s = RandomString(len, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!§$%&/()=");
+    Assert.AreEqual(Solution(s), Kata.LowercaseCountCheck(s), "Should work for {0}", s);
+  }
+  
+  private static int Solution(string s)
+  {
+    return Regex.Replace(s, @"[^a-z]", "").Length;
+  }
+  
+  private static string RandomString(int randStrLength, string allowedChars)
+	{
+		string randStr = string.Empty;
+		Random r = new Random();
+		for(int i = 0; i < randStrLength; i++)
+		{
+			randStr += allowedChars[r.Next(allowedChars.Length)];
+		}
+		return randStr;
+	}
+}
