@@ -1,0 +1,45 @@
+//8 kyu
+//Instructions: Return the Nth Even Number
+
+//I'm annoyed that I didn't think about the fact that the ternary isn't even needed.  Oh well, next time.
+public class Kata
+{
+  public static int NthEven(int n) => n == 1 ? 0 : (n-1) * 2;
+}
+
+//better would be
+public class Kata
+{
+  public static int NthEven(int n) => (n-1) * 2;
+}
+
+//tests
+
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+  // TODO: Replace examples and use TDD development by writing your own tests
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    [TestCase(1, Result=0)]
+    [TestCase(3, Result=4)]
+    [TestCase(100, Result=198)]
+    [TestCase(1298734, Result=2597466)]
+    public int FixedTest(int n)
+    {
+      return Kata.NthEven(n);
+    }
+    
+    [Test]
+    public void RandomTest([Random(1,1000000,100)]int n)
+    {
+      Assert.AreEqual(Solution(n), Kata.NthEven(n));
+    }
+    
+    private int Solution(int n) => n*2-2;
+  }
+}
