@@ -1,0 +1,38 @@
+//7 kyu
+//Instructions:
+//You have to write a function printer_error which given a string will output the error rate of the printer as a string 
+//representing a rational whose numerator is the number of errors (characters from n-z) 
+//and the denominator the length of the control string. 
+//Don't reduce this fraction to a simpler expression.
+
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+public class Printer 
+{
+    public static string PrinterError(String s) 
+    {
+        int length = s.Length;
+        Regex rx = new Regex(@"[n-z]");
+        MatchCollection matches = rx.Matches(s);
+        return matches.Count + "/" + length;
+    }
+}
+
+//tests
+using System;
+using NUnit.Framework;
+
+[TestFixture]
+public static class PrinterTests 
+{
+
+[Test]
+    public static void test1() 
+    {
+        Console.WriteLine("Testing PrinterError");
+        string s="aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz";
+        Assert.AreEqual("3/56", Printer.PrinterError(s));
+    }
+}  
