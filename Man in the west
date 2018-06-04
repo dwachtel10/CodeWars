@@ -1,0 +1,30 @@
+//8 kyu
+//Instructions: So, you need to check if there is gold in the bucket, and if so, return True/true. If not, return False/false.
+
+using System;
+using System.Linq;
+
+public static class Kata
+{
+  public static bool CheckTheBucket(string[] bucket) => bucket.Contains("gold");
+}
+
+//test
+
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test, Description("should check if the bucket contains gold")]
+    public void SampleTest()
+    {
+      Assert.AreEqual(true, Kata.CheckTheBucket(new string[] {"stone", "stone", "gold", "stone", "stone"}), "I will bye a teeth");
+      Assert.AreEqual(false, Kata.CheckTheBucket(new string[] {"stone", "stone", "stone", "stone", "stone"}), "Not today");
+      Assert.AreEqual(true, Kata.CheckTheBucket(new string[] {"gold", "gold", "gold", "gold", "gold"}), "I will bye a teeth");
+    }
+  }
+}
