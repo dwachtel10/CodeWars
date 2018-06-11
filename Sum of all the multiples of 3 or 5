@@ -1,0 +1,57 @@
+//7 kyu
+//Instructions: Your task is to write function findSum.
+
+//Upto and including n, this function will return the sum of all multiples of 3 and 5.
+
+namespace Solution
+{
+  public static class Program
+  {
+    public static int findSum(int n)
+    {
+      int sum = 0;
+      for (int i = 0; i <= n; i++)
+        { if (i % 3 == 0 || i % 5 == 0)
+          { sum += i;}
+        }
+      return sum;
+      }
+  }
+}
+
+//tests
+
+namespace Solution
+{
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void MyTest()
+    {
+      Assert.AreEqual(8, Program.findSum(5));
+      Assert.AreEqual(33, Program.findSum(10));
+      Assert.AreEqual(2418, Program.findSum(100));
+      Assert.AreEqual(234168, Program.findSum(1000));
+      
+      var rndNum = new Random(DateTime.Now.Millisecond).Next(1000, 10000);
+      Assert.AreEqual(solution(rndNum), Program.findSum(rndNum));
+    }
+    
+    public static int solution(int n)
+    {
+      var sum = 0;
+      for(var i = 1; i <= n; i++)
+      {
+        if(i % 3 == 0 || i % 5 == 0)
+        {
+          sum += i;
+        }
+      }
+      return sum;
+    }
+  }
+}
