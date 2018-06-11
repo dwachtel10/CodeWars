@@ -1,0 +1,68 @@
+//7 kyu
+
+//Instructions: Your task is to write a function maskify, which changes all but the last four characters into '#'.
+
+
+//Could have used cc.Substring(len-4).PadLeft(len, '#');
+public static class Kata
+{
+  // return masked string
+  public static string Maskify(string cc)
+  {
+  string replace = "";
+  if (cc.Length <= 4) 
+    { return cc; }
+    else 
+      {
+      for (int i = 0; i < cc.Length; i++)
+        {
+          if (i < cc.Length - 4)
+            {
+              replace += '#';
+            }
+          else
+            {
+              replace += cc[i];
+            }
+        }
+        return replace;
+      }
+  }
+}
+
+//tests
+using System;
+using NUnit.Framework;
+
+[TestFixture]
+public class Tests
+{
+  [Test]
+  public void ExamplesTests()
+  {
+    Assert.AreEqual("############5616", Kata.Maskify("4556364607935616"));
+    Assert.AreEqual("1", Kata.Maskify("1"));
+    Assert.AreEqual("#1111", Kata.Maskify("11111"));
+  }
+  
+  [Test]
+  public void RandomTests()
+  {
+    Func<string, string> solution = (cc) =>
+    {
+      return cc.Length <= 4 ? cc : new String('#', cc.Length - 4) + cc.Substring(cc.Length - 4);
+    };
+    Random rand = new Random();
+    Func<string> randomToken = () =>
+    {
+      return rand.Next(1000, 9999).ToString();
+    };
+    
+    for (int i = 0; i < 100; i++)
+    {
+      string t = randomToken() + randomToken() + randomToken() + randomToken();
+      t = t.Substring(0, 1 + (rand.Next(1, 15) % t.Length));
+      Assert.AreEqual(solution(t), Kata.Maskify(t));
+    }
+  }
+}
