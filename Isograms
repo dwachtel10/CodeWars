@@ -1,0 +1,40 @@
+//7 kyu
+//Instructions: An isogram is a word that has no repeating letters, consecutive or non-consecutive. 
+//Implement a function that determines whether a string that contains only letters is an isogram. 
+//Assume the empty string is an isogram. Ignore letter case.
+
+using System;
+using System.Linq;
+public class Kata
+{
+  public static bool IsIsogram(string str) => str.Length == str.ToLower().Distinct().Count();
+}
+
+//tests
+
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+
+[TestFixture]
+public class BasicTests
+{
+
+    private static IEnumerable<TestCaseData> testCases
+    {
+      get
+      {
+        yield return new TestCaseData("Dermatoglyphics").Returns(true);
+        yield return new TestCaseData("isogram").Returns(true);
+        yield return new TestCaseData("moose").Returns(false);
+        yield return new TestCaseData("isIsogram").Returns(false);
+        yield return new TestCaseData("aba").Returns(false);
+        yield return new TestCaseData("moOse").Returns(false);
+        yield return new TestCaseData("thumbscrewjapingly").Returns(true);
+        yield return new TestCaseData("").Returns(true);
+      }
+    }
+
+    [Test, TestCaseSource("testCases")]
+    public bool Test(string str) => Kata.IsIsogram(str);
+}
