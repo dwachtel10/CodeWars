@@ -1,0 +1,71 @@
+//8 kyu
+//Instructions: Create a funciton which translates a given DNA string into RNA.
+//Convert T to U
+using System;
+
+namespace Converter {
+  public class Converter
+  {
+    public string dnaToRna(string dna) => dna.Replace('T', 'U');
+  }
+}
+
+//tests
+
+namespace Converter {
+  using NUnit.Framework;
+  using System;
+  
+  [TestFixture]
+  public class Test
+  {
+    
+    public void test() {
+      Converter converter = new Converter();
+      Assert.AreEqual("UUUU", converter.dnaToRna("TTTT"));
+    }
+    
+    [Test]
+    public void testDna2() {
+        Converter converter = new Converter();
+        Assert.AreEqual("GCAU", converter.dnaToRna("GCAT"));
+    }
+    
+    [Test]
+    public void testDna3() {
+        Converter converter = new Converter();
+        Assert.AreEqual("GACCGCCGCC", converter.dnaToRna("GACCGCCGCC"));
+    }
+    
+    [Test]
+    public void testDna4() {
+        Converter converter = new Converter();
+        Assert.AreEqual("GAUUCCACCGACUUCCCAAGUACCGGAAGCGCGACCAACUCGCACAGC", converter.dnaToRna("GATTCCACCGACTTCCCAAGTACCGGAAGCGCGACCAACTCGCACAGC"));
+    }
+    
+    [Test]
+    public void testDna5() {
+        Converter converter = new Converter();
+        Assert.AreEqual("CACGACAUACGGAGCAGCGCACGGUUAGUACAGCUGUCGGUGAACUCCAUGACA", converter.dnaToRna("CACGACATACGGAGCAGCGCACGGTTAGTACAGCTGTCGGTGAACTCCATGACA"));
+    }
+    
+    [Test]
+    public void testDna6() {
+        Converter converter = new Converter();
+        Assert.AreEqual("CACGACAUACGGAGCAGCGCACGGUUAGUACAGCUGUCGGUGAACUCCAUGACA", converter.dnaToRna("CACGACATACGGAGCAGCGCACGGTTAGTACAGCTGTCGGTGAACTCCATGACA"));
+    }
+    
+    [Test]
+    public void testDna7() {
+        Converter converter = new Converter();
+        Assert.AreEqual("AACCCUGUCCACCAGUAACGUAGGCCGACGGGAAAAAUAAACGAUCUGUCAAUG", converter.dnaToRna("AACCCTGTCCACCAGTAACGTAGGCCGACGGGAAAAATAAACGATCTGTCAATG"));
+    }
+    
+    [Test]
+    public void testDna8() {
+        Converter converter = new Converter();
+        Assert.AreEqual("GAAGCUUAUCCGUUCCUGAAGGCUGUGGCAUCCUCUAAAUCAGACUUGGCUACGCCGUUAGCCGAGGGCUUAGCGUUGAGUGUCAUUAUAUACGCGGCCUGCGACCUGGCCACACAAUGCCCUCGAAAAUUUUUCUUUCGGUUAUACGAGUUGCGAAACCUUUCGCGCGUAGACGAAGAAUUUGAAGUGGCCUACACCGUUUGGAAAGCCGUUCUCAUUAGAAUGGUACCGACUACUCGGCUCGGAGUCAUUGUAUAGGGAGAGUGUCGUAUCAACAUCACACACUUUUAGCAUUUAAGGUCCAUGGCCGUUGACAGGUACCGA", converter.dnaToRna("GAAGCTTATCCGTTCCTGAAGGCTGTGGCATCCTCTAAATCAGACTTGGCTACGCCGTTAGCCGAGGGCTTAGCGTTGAGTGTCATTATATACGCGGCCTGCGACCTGGCCACACAATGCCCTCGAAAATTTTTCTTTCGGTTATACGAGTTGCGAAACCTTTCGCGCGTAGACGAAGAATTTGAAGTGGCCTACACCGTTTGGAAAGCCGTTCTCATTAGAATGGTACCGACTACTCGGCTCGGAGTCATTGTATAGGGAGAGTGTCGTATCAACATCACACACTTTTAGCATTTAAGGTCCATGGCCGTTGACAGGTACCGA"));
+    }
+    
+  }
+}
