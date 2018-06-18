@@ -1,0 +1,37 @@
+//8 kyu
+//Instructions:
+//Create a class Ball.
+
+//Ball objects should accept one argument for "ball type" when instantiated.
+
+//If no arguments are given, ball objects should instantiate with a "ball type" of "regular."
+
+using System;
+
+public class Ball {
+  public string ballType { get; set; }
+  
+  public Ball() {
+    this.ballType = "regular";
+  }
+  public Ball(string ballType){
+    this.ballType = ballType;
+  }
+}
+
+//tests
+using System;
+using NUnit.Framework;
+
+[TestFixture]
+public class FactorialTests {
+  [Test]
+  public void DefaultConstructorShouldSetBallTypeToRegular() {
+    Assert.AreEqual("regular", new Ball().ballType);
+  }
+  
+  [Test]
+  public void ConstructorWithArgumentShouldSetBallTypeAsExpected() {
+    Assert.AreEqual("super", new Ball("super").ballType);
+  }
+}
