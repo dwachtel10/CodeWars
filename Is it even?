@@ -1,0 +1,43 @@
+//8 kyu
+//Instructions:  Determine if number is even
+
+public class Number
+{
+  public bool IsEven(double n) => n % 2 == 0;
+}
+
+//test
+using NUnit.Framework;
+
+[TestFixture]
+public class NumberTest
+{
+  private Number num;
+  
+  [SetUp]
+  public void SetUp() 
+  {
+    num = new Number();
+  }
+
+  [TearDown]
+  public void TearDown()
+  {
+    num = null;
+  }
+
+  [Test]
+  public void Tests()
+  {
+    Assert.AreEqual(true, num.IsEven(0));
+    Assert.AreEqual(false, num.IsEven(0.5));
+    Assert.AreEqual(false, num.IsEven(1));
+    Assert.AreEqual(true, num.IsEven(2));
+    Assert.AreEqual(true, num.IsEven(-4));
+    Assert.AreEqual(false, num.IsEven(15));
+    Assert.AreEqual(true, num.IsEven(20));
+    Assert.AreEqual(true, num.IsEven(220));
+    Assert.AreEqual(false, num.IsEven(222222221));
+    Assert.AreEqual(true, num.IsEven(50000000000000));        
+  }
+}
