@@ -1,0 +1,37 @@
+//8 kyu
+//Instructions:
+//Create a function that will return a string that combines all of the letters of the three inputed strings in groups. 
+//Taking the first letter of all of the inputs and grouping them next to each other. Do this for every letter, see example below!
+public class Kata
+{
+  public static string TripleTrouble(string one, string two, string three)
+  {
+    string result = "";
+    for (int i = 0; i < one.Length; i++)
+      {
+        result += one[i];
+        result += two[i];
+        result += three[i];
+      }
+    return result;
+  }
+}
+
+//test
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void SampleTest()
+    {
+      Assert.AreEqual("ttlheoiscstk", Kata.TripleTrouble("this","test","lock"));
+      Assert.AreEqual("abcabc", Kata.TripleTrouble("aa","bb","cc"));
+      Assert.AreEqual("Batman", Kata.TripleTrouble("Bm", "aa", "tn"));
+      Assert.AreEqual("LexLuthor", Kata.TripleTrouble("LLh","euo","xtr"));
+    }
+  }
+}
