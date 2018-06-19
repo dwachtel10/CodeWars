@@ -1,0 +1,39 @@
+//8 kyu
+//Instructions: 
+//Write a function which removes from string all non-digit characters and parse the remaining to number. E.g: "hell5o wor6ld" -> 56
+
+using System;
+using System.Text.RegularExpressions;
+
+namespace Solution
+{
+  public static class Program
+  {
+    public static int getNumberFromString(string s)
+    {
+      return Int32.Parse(Regex.Replace(s, "[^.0-9]", ""));
+    }
+  }
+}
+
+//test
+namespace Solution
+{
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void MyTest()
+    {
+      Assert.AreEqual(1, Program.getNumberFromString("1"));
+      Assert.AreEqual(123, Program.getNumberFromString("123"));
+      Assert.AreEqual(7, Program.getNumberFromString("this is number: 7"));
+      Assert.AreEqual(100000000, Program.getNumberFromString("$100 000 000"));
+      Assert.AreEqual(56, Program.getNumberFromString("hell5o wor6ld"));
+      Assert.AreEqual(12345, Program.getNumberFromString("one1 two2 three3 four4 five5"));
+    }
+  }
+}
