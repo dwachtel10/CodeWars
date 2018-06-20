@@ -1,0 +1,78 @@
+//7 kyu
+//Instructions:
+//You are given an odd-length array of integers, in which all of them are the same, except for one single number.
+//Complete the method which accepts such an array, and returns that single different number.
+
+using System;
+using System.Linq;
+
+class Solution 
+{
+  public static int Stray(int[] numbers)
+  {
+    int[] count = numbers.GroupBy(e=>e).Where(e=>e.Count() == 1).Select(e => e.First()).ToArray();
+    Console.WriteLine(count);
+    return count[0];
+  }
+}
+
+//test
+
+using NUnit.Framework;
+using System;
+
+[TestFixture]
+public class SolutionTest
+{
+  [Test]
+  public void SimpleArray1()
+  {
+    Assert.AreEqual(2, Solution.Stray(new int[] {1, 1, 2}));
+  }
+  
+  [Test]
+  public void SimpleArray2()
+  {
+    Assert.AreEqual(3, Solution.Stray(new int[] {17, 17, 3, 17, 17, 17, 17}));
+  }
+  
+  [Test]
+  public void FirstItem()
+  {
+    Assert.AreEqual(8, Solution.Stray(new int[] {8, 1, 1, 1, 1, 1, 1}));
+  }
+  
+  [Test]
+  public void LastItem()
+  {
+    Assert.AreEqual(0, Solution.Stray(new int[] {1, 1, 1, 1, 1, 1, 0}));
+  }
+  
+  [Test]
+  public void MiddleItem()
+  {
+    Assert.AreEqual(7, Solution.Stray(new int[] {0, 0, 0, 7, 0, 0, 0}));
+  }
+  
+  [Test]
+  public void SimpleArray3()
+  {
+    Assert.AreEqual(-6, Solution.Stray(new int[] {-21, -21, -21, -21, -6, -21, -21}));
+  }
+  
+  [Test]
+  public void RandomSmallArray()
+  {
+    int strayNumber = SolutionHelper.RandomInt(-10000, 10000);
+    int[] array = SolutionHelper.ValidRandomArray(101, strayNumber);
+    Assert.AreEqual(strayNumber, Solution.Stray(array));
+  }
+  
+  [Test]
+  public void RandomBigArray()
+  {
+    int strayNumber = SolutionHelper.RandomInt(-10000, 10000);
+    int[] array = SolutionHelper.ValidRandomArray(15273, strayNumber);
+    Assert.AreEqual(strayNumber, Solution.Stray(array));
+  }
+}
