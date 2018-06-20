@@ -1,0 +1,110 @@
+//7 kyu
+//Instructions:
+//We want to generate a function that computes the series starting from 0 and ending until the given number following the sequence:
+//0 1 3 6 10 15 21 28 36 45 55 ....
+
+//which is created by
+
+//0, 0+1, 0+1+2, 0+1+2+3, 0+1+2+3+4, 0+1+2+3+4+5, 0+1+2+3+4+5+6, 0+1+2+3+4+5+6+7 etc..
+//Example:
+//Input:
+
+//>6
+//Output:
+
+//0+1+2+3+4+5+6 = 21
+
+//Input:
+
+//> -15
+//Output:
+
+//-15<0
+
+//Input:
+
+//> 0
+//Output:
+
+//0=0
+public class SequenceSum
+{
+  public static string ShowSequence(int n)
+  {    
+    int counter = 0;
+    string show = "";
+    if (n<0){ show = $"{n}<0";}
+    for (int i = 0; i <= n; i++)
+      {
+        counter += i;
+       if (n == 0) {
+        show = "0=0";
+        }
+        else if (i < n) {
+        show += $"{i}+";
+        }
+        else  {
+        show += $"{i} = " + counter;
+        }
+      }
+    return show;
+  }
+}
+
+//test
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+  
+  [TestFixture]
+  public class SequenceSumTests
+  {
+    [Test]
+    public void BasicTests()
+    {
+      Assert.AreEqual("0+1+2+3+4+5+6 = 21", SequenceSum.ShowSequence(6));
+      Assert.AreEqual("0+1+2+3+4+5+6+7 = 28", SequenceSum.ShowSequence(7));
+    }
+    
+    [Test]
+    public void NegativeAndZeroTests()
+    { 
+      Assert.AreEqual("0=0", SequenceSum.ShowSequence(0));
+      Assert.AreEqual("-1<0", SequenceSum.ShowSequence(-1));
+      Assert.AreEqual("-10<0", SequenceSum.ShowSequence(-10));      
+    }
+    
+    [Test]
+    public void RandomTests()
+    {
+      var rand = new Random();
+      
+      Func<int,string> myShowSequence = delegate (int n)
+      {
+        if(n == 0)
+        {
+          return "0=0";
+        }
+        if(n < 0)
+        {
+          return n + "<0";
+        }
+        var sum = 0;
+        var numbers = new int[n+1];
+        for(int i = 0 ; i <= n ; i++)
+        {
+          sum += i;
+          numbers[i] = i;
+        }
+    
+        return string.Join("+", numbers) + " = " + sum;
+      }; 
+      
+      for(int r = 0 ; r < 40 ; r++)
+      {
+        var number = rand.Next(0, 1000);
+        Assert.AreEqual(myShowSequence(number), SequenceSum.ShowSequence(number));
+      }
+    }
+  }
+}
