@@ -1,0 +1,76 @@
+//7 kyu
+//Instructions:
+//Find the number with the most digits.
+//If two numbers in the argument array have the same number of digits, return the first one in the array.
+
+using System;
+using System.Linq;
+//could've done it in one with Linq.  Surprise surprise.  Oh well, it worked.
+public class Kata
+{
+  public static int FindLongest(int[] number)
+  {
+    int counter = 0;
+    int[] digitCount = new int[number.Length];
+    foreach (int i in number)
+      {
+        digitCount[counter] = i.ToString().Length;
+        counter +=1;
+      }
+    int max = digitCount.Max();
+    int maxIndex = Array.IndexOf(digitCount, max);
+    return number[maxIndex];
+  }
+}
+
+//tests
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+  using System.Linq;
+  using System.Collections.Generic;
+
+  [TestFixture]
+  public class Test
+  {
+    [Test]
+    public void SampleTest()
+    {
+      Assert.AreEqual(100, Kata.FindLongest(new int[] {1, 10, 100}));
+      Assert.AreEqual(9000, Kata.FindLongest(new int[] {9000, 8, 800}));
+      Assert.AreEqual(900, Kata.FindLongest(new int[] {8, 900, 500}));
+    }
+    
+    [Test]
+    public void FixedTest()
+    {
+      Assert.AreEqual(40000, Kata.FindLongest(new int[] {3, 40000, 100}));
+      Assert.AreEqual(100000, Kata.FindLongest(new int[] {1, 200, 100000}));
+      Assert.AreEqual(7000000, Kata.FindLongest(new int[] {7000000, 10, 100}));
+    }
+    
+    private static int Solution(int[] number) => Int32.Parse(number.Select(v => v.ToString()).OrderByDescending(x => x.Length).First());
+    
+    private static Random rnd = new Random();
+    
+    [Test]
+    public void RandomTest()
+    {
+      for (int i = 0; i < 100; ++i)
+      {
+        int loops = rnd.Next(3, 20);
+        List<int> test = new List<int>();
+        for (int j = 0; j < loops; ++j)
+        {
+          test.Add(rnd.Next(0, (int)3e6 + 1));
+        }
+        int expected = Solution(test.ToArray());
+        int actual = Kata.FindLongest(test.ToArray());
+        Console.WriteLine("Test: {0}", String.Join(", ", test.Select(x => x.ToString())));
+        Console.WriteLine("Expected: {0}", expected);
+        Console.WriteLine("Actual: {0}\n", actual);
+        Assert.AreEqual(expected, actual);
+      }
+    }
+  }
+}
