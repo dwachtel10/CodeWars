@@ -1,0 +1,53 @@
+//7 kyu
+//Instructions: Your task is to make a function that can take any non-negative integer as a argument and return it with its digits in descending order. 
+//Essentially, rearrange the digits to create the highest possible number.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class Kata
+{
+  public static int DescendingOrder(int num)
+  {
+    char[] numbers = num.ToString().ToArray();
+    Array.Sort(numbers);
+    Array.Reverse(numbers);
+    string final = string.Join("", numbers);
+    Console.WriteLine(final);
+    return Convert.ToInt32(final);
+  }
+}
+
+//tests
+using NUnit.Framework;
+
+[TestFixture]
+public class Tests
+{
+  [Test]
+  public void Test0()
+  {
+    Assert.AreEqual(0, Kata.DescendingOrder(0));
+  }  
+  [Test]
+  public void Test1()
+  {
+    Assert.AreEqual(1, Kata.DescendingOrder(1));
+  }
+  [Test]
+  public void Test15()
+  {
+    Assert.AreEqual(51, Kata.DescendingOrder(15));
+  }
+  [Test]
+  public void Test1021()
+  {
+    Assert.AreEqual(2110, Kata.DescendingOrder(1021));
+  }
+  [Test]
+  public void Test123456789()
+  {
+    Assert.AreEqual(987654321, Kata.DescendingOrder(123456789));
+  }
+}
