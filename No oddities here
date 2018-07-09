@@ -1,0 +1,79 @@
+//7 kyu
+//Instructions: Write a small function that returns the values of an array that are not odd.
+//All values in the array will be integers. Return the good values in the order they are given.
+
+using System.Linq;
+public class NoOddities
+{
+    public static int[] NoOdds(int[] values) => values.Where(x => x % 2 == 0).ToArray();
+}
+
+//tests
+namespace Solution
+{
+  using NUnit.Framework;
+  using System;
+  using System.Linq;
+  
+  [TestFixture]
+  public class Tests
+  {
+      [Test]
+      public void ZeroThroughThree()
+      {
+          Assert.AreEqual(new int[]{0,2}, NoOddities.NoOdds(new int[]{0,1,2,3}));
+      }
+      
+      [Test]
+      public void ZeroThroughOne() 
+      {
+        Assert.AreEqual(new int[]{0}, NoOddities.NoOdds(new int[]{0,1}));
+      }
+      
+      [Test]
+      public void OddsThroughTen()
+      {
+          Assert.AreEqual(new int[]{}, NoOddities.NoOdds(new int[]{1,3,5,7,9}));
+      }
+      
+      [Test]
+      public void EvensThroughTen()
+      {
+          var arr = new int[] {0,2,4,6,8,10};
+          
+          Assert.AreEqual(arr, NoOddities.NoOdds(arr));
+      }
+      
+      [Test]
+      public void NegativeOdds()
+      {
+        Assert.AreEqual(new int[] {}, NoOddities.NoOdds(new int[]{-1,-3,-5,-7,-9}));
+      }
+      
+      [Test]
+      public void OutOfOrder() 
+      {
+          var arr = new int[] {2,4,8,6,0};
+          
+          Assert.AreEqual(arr, NoOddities.NoOdds(arr));
+      }
+      
+      private static Random rnd = new Random();
+      
+      [Test, Description("Random Tests")]
+      public void RandomTest()
+      {
+        const int Tests = 1000;
+        
+        for (int i = 0; i < Tests; ++i)
+        {
+          int[] test = new int[rnd.Next(0, 200)].Select(_ => rnd.Next(-200, 200)).ToArray();
+          
+          int[] expected = test.Where(v => v % 2 == 0).ToArray();
+          int[] actual = NoOddities.NoOdds(test);
+          
+          Assert.AreEqual(expected, actual);
+        }
+      }
+  }
+}
