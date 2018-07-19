@@ -1,0 +1,78 @@
+//7 kyu
+//Instructions:In this kata you get the start number and the end number of a region and should return the count of all numbers except numbers with a 5 in it. 
+//The start and the end number are both inclusive!
+
+using System;
+using System.Linq;
+
+public class Kata
+{
+  public static int DontGiveMeFive(int start, int end)
+  {
+    int count = 0;
+    
+    for(int i = start; i <= end; i++)
+      {
+        if (i.ToString().Contains("5"))
+          {count += 0;}
+          else{count += 1;}
+      }
+return count;
+  }
+}
+
+//tests
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+  using System.Linq;
+  
+  public class KataTests
+  {
+    [Test]
+    public void ExampleTests()
+    {
+      Assert.AreEqual(8, Kata.DontGiveMeFive(1,9));
+      Assert.AreEqual(12, Kata.DontGiveMeFive(4,17));
+    }
+    
+    [Test]
+    public void MoreTests()
+    {
+      Assert.AreEqual(72, Kata.DontGiveMeFive(1,90));
+      Assert.AreEqual(20, Kata.DontGiveMeFive(-4,17));
+      Assert.AreEqual(38, Kata.DontGiveMeFive(-4,37));
+      Assert.AreEqual(13, Kata.DontGiveMeFive(-14,-1));
+      Assert.AreEqual(1, Kata.DontGiveMeFive(149,151));
+      Assert.AreEqual(9, Kata.DontGiveMeFive(-14,-6));      
+    }
+    
+    [Test]
+    public void RandomTests()
+    {
+      var rand = new Random();
+      
+      Func<int,int,int> myDontGiveMeFive = delegate (int start, int end)
+      {
+        var count = 0;
+        for(int i=start;i<=end;i++)
+        {
+          if(!i.ToString().Contains("5"))
+          {
+            count++;
+          }
+       }
+       return count;
+      };
+      
+      for(var i=0;i<30;i++)
+      {
+        var start = rand.Next(-50, 60);
+        var end = rand.Next(start + 1, 80);
+        
+        Assert.AreEqual(myDontGiveMeFive(start,end), Kata.DontGiveMeFive(start, end));
+      }
+    }
+  }
+}
