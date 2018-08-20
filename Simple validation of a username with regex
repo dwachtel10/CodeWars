@@ -1,0 +1,71 @@
+//8 kyu
+//Instructions:
+//Write a simple regex to validate a username. Allowed characters are:
+//lowercase letters,
+//numbers,
+//underscore
+//Length should be between 4 and 16 characters (both included).
+
+using System;
+using System.Text.RegularExpressions;
+
+public class Kata
+{
+  public static bool ValidateUsr(string username)
+  {
+  if (username.Length > 3 && username.Length < 17){
+  Match result = Regex.Match(username, @"([^a-z0-9_])");
+  if (result.Success)
+   {return false;}
+   else
+   {return true;}}
+   else {return false;}
+  }
+}
+
+//tests
+using System;
+using System.Text.RegularExpressions;
+using NUnit.Framework;
+
+public class Tests
+{
+  [Test]
+  [TestCase("asddsa", ExpectedResult=true)]
+  [TestCase("a", ExpectedResult=false)]
+  [TestCase("Hass", ExpectedResult=false)]
+  [TestCase("Hasd_12ssssssssssssssasasasasasssasassss", ExpectedResult=false)]
+  [TestCase("", ExpectedResult=false)]
+  [TestCase("____", ExpectedResult=true)]
+  [TestCase("012", ExpectedResult=false)]
+  [TestCase("p1pp1", ExpectedResult=true)]
+  [TestCase("asd43 34", ExpectedResult=false)]
+  [TestCase("asd43_34", ExpectedResult=true)]
+  public static bool FixedTest(string username)
+  {
+    return Kata.ValidateUsr(username);
+  }
+  
+  [Test]
+  public static void RandomTest([Random(0,20,100)]int length)
+  {
+    string str = RandomString(length, "abcdefghijklmnopqrstuvwxyzABC_ ");
+    Assert.AreEqual(Solution(str), Kata.ValidateUsr(str), string.Format("Should work for {0}", str));
+  }
+  
+  private static bool Solution(string username) 
+  {
+    return Regex.Match(username, @"^[a-z0-9_]{4,16}$").Success;
+  }
+  
+  private static string RandomString(int randStrLength, string allowedChars)
+	{
+		string randStr = string.Empty;
+		Random r = new Random();
+		for(int i = 0; i < randStrLength; i++)
+		{
+			randStr += allowedChars[r.Next(allowedChars.Length)];
+		}
+		return randStr;
+	}
+}
