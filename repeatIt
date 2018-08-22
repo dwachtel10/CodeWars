@@ -1,0 +1,94 @@
+//8 kyu
+//Instructions:
+//Create a function that takes a string and an integer (n).
+//The function should return a string that repeats the input string n number of times.
+//If anything other than a string is passed in you should return "Not a string"
+
+using System;
+
+public class RepeatIt
+{
+	public static string RepeatString(object toRepeat, int n)
+	{
+  	if (toRepeat is string)
+      {
+        string final = "";
+        for (int i = 0; i < n; i++)
+          {
+            final += toRepeat;
+          }
+        return final;
+      } else
+      {
+        return "Not a string";
+      }
+	}
+}
+
+//tests
+
+using System;
+using System.Text;
+using NUnit.Framework;
+
+[TestFixture]
+public class Suite2Tests
+{
+	[Test]
+	public void Test1()
+	{
+		Assert.That(RepeatIt.RepeatString("*", 3), Is.EqualTo("***"));
+	}
+
+	[Test]
+	public void Test2()
+	{
+		Assert.That(RepeatIt.RepeatString("Hello", 11), Is.EqualTo("HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello"));
+	}
+
+	[Test]
+	public void BasicTests()
+	{
+		Assert.That(RepeatIt.RepeatString("*", 3), Is.EqualTo("***"));
+		Assert.That(RepeatIt.RepeatString("Hello", 11), Is.EqualTo("HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello"));
+		Assert.That(RepeatIt.RepeatString("243624", 22),
+			Is.EqualTo(
+				"243624243624243624243624243624243624243624243624243624243624243624243624243624243624243624243624243624243624243624243624243624243624"));
+		Assert.That(RepeatIt.RepeatString(new object(), 3), Is.EqualTo("Not a string"));
+		Assert.That(RepeatIt.RepeatString(null, 3), Is.EqualTo("Not a string"));
+		Assert.That(RepeatIt.RepeatString('a', 3), Is.EqualTo("Not a string"));
+		Assert.That(RepeatIt.RepeatString(24, 3), Is.EqualTo("Not a string"));
+		Assert.That(RepeatIt.RepeatString(true, 3), Is.EqualTo("Not a string"));
+	}
+
+	private  String SolutionRepeatString(object toRepeat, int n)
+	{
+		if (!(toRepeat is string))
+		{
+			return "Not a string";
+		}
+
+		var stringBuilder = new StringBuilder(n);
+		for (var i = 0; i < n; i++)
+		{
+			stringBuilder.Append(toRepeat);
+		}
+		return stringBuilder.ToString();
+	}
+
+	[Test]
+	public void RandTests()
+	{
+		var baseValues = new[] { "Arryn", "Baratheon", "Bolton", "Greyjoy", "Lannister", "Martell", "Targaryen", "Stark" };
+
+		for (var i=0; i<40; i++)
+		{
+			var index = new Random().Next(0, baseValues.Length);
+			var times = new Random().Next(0, 10);
+			var text = baseValues[index];
+			var expected = SolutionRepeatString(text, times);
+			var actual = RepeatIt.RepeatString(text, times);
+			Assert.That(actual, Is.EqualTo(expected));
+		}
+	}
+}
