@@ -1,2 +1,2 @@
 # CodeWars
-A collection of my successful solutions of CodeWars katas
+A collection of my successful solutions to 8-kyu-level CodeWars katas.
