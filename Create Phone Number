@@ -1,0 +1,68 @@
+//6 kyu
+//Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
+
+//This seemed pretty simple. Looking at the other solutions, I could have done this with literals or many other ways.
+using System;
+
+public class Kata
+{
+  public static string CreatePhoneNumber(int[] numbers)
+  {
+    string final = "(";
+    
+    foreach(int n in numbers)
+      {
+        final += n;
+        if(final.Length == 4)
+          { final += ')';
+            final += ' ';}
+        if(final.Length == 9)
+          { final += '-';}
+      }
+    return final;
+  }
+}
+
+//tests
+namespace Solution
+{
+  using NUnit.Framework;
+  using System.Collections.Generic;
+  using System;
+  
+  [TestFixture]
+  public class Tests
+  {
+    [Test]
+    [TestCase(new int[]{1,2,3,4,5,6,7,8,9,0}, ExpectedResult="(123) 456-7890")]
+    [TestCase(new int[]{1,1,1,1,1,1,1,1,1,1}, ExpectedResult="(111) 111-1111")]
+    public static string FixedTest(int[] numbers)
+    {
+      return Kata.CreatePhoneNumber(numbers);
+    }
+    
+    private static string Solution(int[] numbers)
+    {
+      string result = "";
+      for(int i = 0; i < numbers.Length; i++) 
+      {
+        if(i == 0) result += "(";
+        result += numbers[i];
+        if(i == 2) result += ") ";
+        if(i == 5) result += "-";
+      }
+      return result;
+    }
+    
+    [Test]
+    public static void RandomTest([Random(0,9,50)]int num)
+    {
+      List<int> list = new List<int>();
+      Random r = new Random();
+      for(int i = 0; i < 9; i++) list.Add(r.Next(10));
+      list.Add(num);
+      int[] numbers = list.ToArray();
+      Assert.AreEqual(Solution(numbers), Kata.CreatePhoneNumber(numbers));
+    }
+  }
+}
