@@ -1,0 +1,80 @@
+//7 kyu
+//Instructions:
+//My friend John likes to go to the cinema. He can choose between system A and system B.
+//System A : buy a ticket (15 dollars) every time
+//System B : buy a card (500 dollars) and every time buy a ticket the price of which is 0.90 times the price he paid for the previous one.
+//John wants to know how many times he must go to the cinema so that the final result of System B, when rounded up to the next dollar,
+//will be cheaper than System A. The function movie has 3 parameters:
+//card (price of the card), ticket (normal price of a ticket), perc (fraction of what he paid for the previous ticket) 
+//and returns the first n such that ceil(price of System B) < price of System A.
+
+using System;
+
+public class MovieC {
+    
+    public static int Movie(int card, int ticket, double perc) {
+          double ticketPrice = 0;
+          double cardPrice = card;
+          int iteration = 0;
+          do
+            {
+              ticketPrice += ticket;
+              cardPrice += (ticket * Math.Pow(perc, iteration) * perc);
+              iteration++;
+              }
+              while (!((Math.Ceiling(Convert.ToDecimal(cardPrice))) < Convert.ToDecimal(ticketPrice)));
+          
+          return iteration;
+    }
+    
+ 
+ //tests
+ 
+ using System;
+using NUnit.Framework;
+
+[TestFixture]
+public static class MovieCTests {
+
+    private static Random rnd = new Random();
+
+    private static void testing(long actual, long expected) {
+        Assert.AreEqual(expected, actual);
+    }
+
+[Test]
+    public static void test1() {
+        Console.WriteLine("Fixed Tests: Movie");
+        testing(MovieC.Movie(500, 15, 0.9), 43);
+        testing(MovieC.Movie(100, 10, 0.95), 24);
+        testing(MovieC.Movie(0, 10, 0.95), 2);
+        testing(MovieC.Movie(250, 20, 0.9), 21);
+        testing(MovieC.Movie(500, 20, 0.9), 34);
+        testing(MovieC.Movie(2500, 20, 0.9), 135);
+    }
+    
+    //-----------------------
+    public static int MovieSol6776(int card, int ticket, double perc) {
+        int i = 0; double sb = card; int sa = 0; double prev = ticket;
+        while (true) { 
+            i++;
+            double nou = prev * perc;
+            sb += nou;
+            prev = nou;
+            sa += ticket;
+            if (Math.Ceiling(sb) < sa)
+                return i; 
+        }
+    }
+    //-----------------------
+[Test]    
+    public static void RandomTest() {
+      Console.WriteLine("Random Tests");
+      for (int i = 0; i < 100; i++) { 
+        int card = rnd.Next(10, 1000000);   
+        int tck = rnd.Next(2, 50);
+        double perc = rnd.Next(40,98) / 100.0;
+        testing(MovieC.Movie(card, tck, perc), MovieSol6776(card, tck, perc)); 
+      }
+    }  
+}
