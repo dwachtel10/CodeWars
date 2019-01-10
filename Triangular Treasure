@@ -1,0 +1,99 @@
+//7 kyu
+//Triangular numbers are so called because of the equilateral triangular shape that they occupy when laid out as dots. i.e.
+//1st (1)   2nd (3)    3rd (6)
+//*          **        ***
+//           *         **
+//                     *
+//You need to return the nth triangular number. You should return 0 for out of range values.
+
+using System;
+
+public class Kata
+{
+  public static int Triangular(int n)
+  {
+    int total = 0;
+    if (n > 0) {
+    for(int i = 1; i <= n; i++)
+      {
+        total += i;
+      }
+    }
+    return total;
+  }
+}
+
+//test
+
+using System;
+using NUnit.Framework;
+
+[TestFixture]
+public class TriangularTest
+{
+  [Test]
+  public static void SmallNumbers1()
+  {
+    Assert.AreEqual(3, Kata.Triangular(2));
+  }
+  
+  [Test]
+  public static void SmallNumbers2()
+  {
+    Assert.AreEqual(28, Kata.Triangular(7));
+  }
+  
+  [Test]
+  public static void SmallNumbers3()
+  {
+    Assert.AreEqual(78, Kata.Triangular(12));
+  }
+  
+  [Test]
+  public static void SmallNumbers4()
+  {
+    Assert.AreEqual(325, Kata.Triangular(25));
+  }
+  
+  [Test]
+  public static void SmallNumbers5()
+  {
+    Assert.AreEqual(1275, Kata.Triangular(50));
+  }
+  
+  [Test]
+  public static void BigNumbers1()
+  {
+    Assert.AreEqual(500500, Kata.Triangular(1000));
+  }
+  
+  [Test]
+  public static void BigNumbers2()
+  {
+    Assert.AreEqual(12502500, Kata.Triangular(5000));
+  }
+  
+  [Test]
+  public static void BigNumbers3()
+  {
+    Assert.AreEqual(50005000, Kata.Triangular(10000));
+  }
+  
+  [Test]
+  public static void ZeroShouldBeZero()
+  {
+    Assert.AreEqual(0, Kata.Triangular(0));
+  }
+  
+  [Test]
+  public static void NegativesShouldBeZero()
+  {
+    Assert.AreEqual(0, Kata.Triangular(-1));
+  }
+  
+  [Test]
+  public static void OneMoreNegativeTest()
+  {
+    Assert.AreEqual(0, Kata.Triangular(-5));
+  }
+}
