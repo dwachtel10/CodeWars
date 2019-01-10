@@ -1,0 +1,61 @@
+//7 kyu
+//Write a function called sortGiftCode/sort_gift_code/SortGiftCode that accepts a string containing up to 26 unique alphabetical characters, 
+//and returns a string containing the same characters in alphabetical order.
+using System;
+
+public class Kata
+{
+  public static string SortGiftCode(string code)
+  {
+    char[] array = new char[code.Length];
+    
+    int counter = 0;
+    foreach(char c in code)
+      {
+        array[counter] = c;
+        counter++;
+      }
+    Array.Sort<char>(array);
+    string final = new string(array);
+    return final;
+  }
+}
+
+//test
+
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+  using System.Linq;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void SampleTest()
+    {
+      Assert.AreEqual("abcdef", Kata.SortGiftCode("abcdef"));
+      Assert.AreEqual("kpqsuvy", Kata.SortGiftCode("pqksuvy"));
+      Assert.AreEqual("abcdefghijklmnopqrstuvwxyz", Kata.SortGiftCode("zyxwvutsrqponmlkjihgfedcba"));
+    }
+    
+    private static Random rnd = new Random();
+    
+    [Test]
+    public void RandomTest()
+    {
+      const int Tests = 100;
+      
+      for (int i = 0; i < Tests; ++i)
+      {
+        string test = String.Concat(new char[rnd.Next(6, 40)].Select(_ => (char)rnd.Next(97, 123)).Distinct());
+        
+        string expected = String.Concat(test.OrderBy(x => x));
+        string actual = Kata.SortGiftCode(test);
+        
+        Assert.AreEqual(expected, actual);
+      }
+    }
+  }
+}
