@@ -1,0 +1,64 @@
+//7 kyu
+//Write a function that takes a list (in Python) or array (in other languages) of numbers, and makes a copy of it.
+
+//this was a bit too easy
+using System;
+using System.Collections.Generic;
+
+public static class ListExtensions
+{
+  public static List<T> Copy<T>(this List<T> lst)
+  {
+    List<T> Copy = new List<T>();
+    foreach(T o in lst)
+      {
+        Copy.Add(o);
+      }
+    return Copy;
+  }
+}
+
+//tests
+
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    private static Random rnd = new Random();
+    
+    [Test]
+    public void FixedTest()
+    {
+      List<int> lst = new int[] {1, 2, 3, 4}.ToList();
+      List<int> lstCopy = lst.Copy();
+      Assert.That(lstCopy, Is.EqualTo(lst), "Copy unsuccessful");
+      
+      lst[1] += 5;
+      Assert.That(lstCopy, Is.Not.EqualTo(lst), "The list was not properly copied");
+      
+      List<int> lstCopyCopy = lstCopy.Copy();
+      Assert.That(lstCopyCopy, Is.EqualTo(lstCopy));
+      lstCopy[rnd.Next(0, 4)] += rnd.Next(1, 5);
+      Assert.That(lstCopyCopy, Is.Not.EqualTo(lst), "The copied list was not properly copied");
+    }
+    
+    [Test]
+    public void RandomTest()
+    {
+      for (int i = 0; i < 100; ++i)
+      {
+        List<int> testLst = new int[rnd.Next(2, 10)].Select(_ => rnd.Next(0, 100)).ToList();
+        List<int> testLstCopy = testLst.Copy();
+        Assert.That(testLstCopy, Is.EqualTo(testLst));
+        testLst.Add(rnd.Next(0, 100));
+        Assert.That(testLstCopy, Is.Not.EqualTo(testLst));
+      }
+    }
+  }
+}
