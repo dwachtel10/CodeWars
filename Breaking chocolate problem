@@ -1,0 +1,50 @@
+//7 kyu
+//Your task is to split the chocolate bar of given dimension n x m into small squares. Each square is of size 1x1 and unbreakable. 
+//Implement a function that will return minimum number of breaks needed.
+
+public class Kata 
+{
+  public static int BreakChocolate(int n, int m) 
+  {
+    return (n < 1 || m < 1) ? 0 : (n * m) - 1;
+  }
+}
+
+//tests
+
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void SimpleTests()
+    {
+      Assert.AreEqual(24, Kata.BreakChocolate(5, 5));
+      Assert.AreEqual(27, Kata.BreakChocolate(7, 4));
+      Assert.AreEqual(0, Kata.BreakChocolate(1, 1));
+      Assert.AreEqual(0, Kata.BreakChocolate(0, 0), "What If I Told You There is No Chocolate?");
+      Assert.AreEqual(5, Kata.BreakChocolate(6, 1));
+    }
+    
+    private static Random rnd = new Random();
+    
+    private static int solution(int n, int m) => (n <= 0 || m <= 0) ? 0 : n * (m - 1) + (n - 1);
+    
+    [Test]
+    public void RandomTests()
+    {
+      for (int i = 0; i < 100; ++i)
+      {
+        int n = rnd.Next(0, 20);
+        int m = rnd.Next(0, 20);
+        
+        int expected = solution(n, m);
+        int actual = Kata.BreakChocolate(n, m);
+        Assert.AreEqual(expected, actual);
+      }
+    }
+  }
+}
