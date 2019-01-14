@@ -1,0 +1,70 @@
+//7 kyu
+//Your task is to remove all duplicate words from string, leaving only single (first) words entries.
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class Kata
+{
+  public static string RemoveDuplicateWords(string s)
+  {
+    string[] words = new []{s};
+    List<string> wordList = s.Split(' ').ToList();
+    List<string> trimmedList = new List<string>(wordList.Distinct());
+    
+    string final = string.Join(" ", trimmedList.ToArray());
+    
+    return final;
+  }
+}
+
+//tests
+
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+  using System.Linq;
+  
+  public class TestHelpers
+  {
+    protected static Random rnd = new Random();
+    protected static String[] words = "Alfa, Bravo, Charlie, Delta, Echo, Foxtrot, Golf, Hotel, India, Juliett, Kilo, Lima, Mike, November, Oscar, Papa, Quebec, Romeo, Sierra, Tango, Uniform, Victor, Whiskey, X-ray, Yankee, Zulu".ToLower().Split(new string[] { ", " }, StringSplitOptions.None);
+    
+    protected static string solution(string s) => String.Join(" ", s.Split(' ').Distinct());
+    protected static string getString(int length = 20)
+    {
+      return String.Join(" ", new string[length].Select(v => words[rnd.Next(0, words.Length)]));
+    }
+  }
+
+  [TestFixture, Description("Example tests")]
+  public class ExampleTests
+  {
+    [Test, Description("Should handle sample case")]
+    public void ExampleTest()
+    {
+      Assert.That(Kata.RemoveDuplicateWords("alpha beta beta gamma gamma gamma delta alpha beta beta gamma gamma gamma delta"), Is.EqualTo("alpha beta gamma delta"));
+    }
+  }
+  
+  [TestFixture, Description("Random tests")]
+  public class RandomTests : TestHelpers
+  {
+    [Test, Description("Should handle random cases")]
+    public void ExampleTest()
+    {
+      for (int i = 0; i < 100; ++i)
+      {
+        string testCase = getString(rnd.Next(20, 50));
+        
+        string actual = Kata.RemoveDuplicateWords(testCase);
+        string expected = solution(testCase);
+        
+        Assert.That(actual, Is.EqualTo(solution(testCase)));
+      }
+    }
+  }
+}
