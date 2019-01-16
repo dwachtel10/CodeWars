@@ -1,0 +1,86 @@
+//7 kyu
+//You are to write a function called unique that takes an array of integers and returns the array with duplicates removed. 
+//It must return the values in the same order as first seen in the given array.
+//Thus no sorting should be done, if 52 appears before 10 in the given array then it should also be that 52 appears before 10 in the returned array.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+    public class Kata
+    {
+        public static List<int> Unique(List<int> integers)
+        {
+            List<int> Unique = new List<int>();
+            foreach(int i in integers)
+              {
+                if (!(Unique.Contains(i)))
+                  {
+                    Unique.Add(i);
+                  }
+              }
+              return Unique;
+        }
+    }
+    
+//tests
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+
+
+    [TestFixture]
+    public class Test
+    {
+        [Test]
+        public void BasicTest()
+        {
+            Assert.AreEqual(new List<int>() { }, Kata.Unique(new List<int>() { }));
+            Assert.AreEqual(new List<int>() { 5, 2, 1, 3 }, Kata.Unique(new List<int>() { 5, 2, 1, 3 }));
+            Assert.AreEqual(new List<int>() { 1, 5, 2, 0, -3, 10 }, Kata.Unique(new List<int>() { 1, 5, 2, 0, 2, -3, 1, 10 }));
+        }
+
+        [Test]
+        public void AdvancedTest()
+        {
+            Assert.AreEqual(new List<int>() { }, Kata.Unique(new List<int>() { }));
+            Assert.AreEqual(new List<int>() { -1 }, Kata.Unique(new List<int>() { -1 }));
+            Assert.AreEqual(new List<int>() { -1, 5, 10, -100, 3, 2 }, Kata.Unique(new List<int>() { -1, 5, 10, -100, 3, 2 }));
+            Assert.AreEqual(new List<int>() { 1, 2, 3 }, Kata.Unique(new List<int>() { 1, 2, 3, 3, 2, 1, 2, 3, 1, 1, 3, 2 }));
+            Assert.AreEqual(new List<int>() { 1, 3, 2 }, Kata.Unique(new List<int>() { 1, 3, 2, 3, 2, 1, 2, 3, 1, 1, 3, 2 }));
+            Assert.AreEqual(new List<int>() { 3, 2, 1 }, Kata.Unique(new List<int>() { 3, 2, 3, 3, 2, 1, 2, 3, 1, 1, 3, 2 }));
+        }
+
+
+        [Test]
+        public void RandomTest([Values(1)] int a, [Random(-1, 1, 10)] double d)
+        {
+            RgTest rg = new RgTest((int)d * 10000);
+            List<int> input = rg.IntList();
+            List<int> output = input.Distinct().ToList();
+            Assert.AreEqual(output, Kata.Unique(input));
+        }
+    }
+
+    public class RgTest
+    {
+        static Random _random;
+        private static int _counter;
+        public RgTest(int seed)
+        {
+            _counter = _counter + 1;
+            _random = new Random(seed + _counter);
+        }
+
+        public List<int> IntList()
+        {
+            List<int> myList = new List<int>();
+            int length = _random.Next(0,30);
+            for (int i = 0; i < length; i++)
+            {
+                myList.Add(_random.Next(-10, 10));
+            }
+            return myList;
+        }
+    }
