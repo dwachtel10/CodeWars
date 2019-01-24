@@ -1,0 +1,91 @@
+//6 kyu
+//You live in the city of Cartesia where all roads are laid out in a perfect grid. 
+//You arrived ten minutes too early to an appointment, so you decided to take the opportunity to go for a short walk. 
+//The city provides its citizens with a Walk Generating App on their phones -- everytime you press the button it sends you an array of one-letter strings representing directions to walk 
+//(eg. ['n', 's', 'w', 'e']). You always walk only a single block in a direction and you know it takes you one minute to traverse one city block,
+//so create a function that will return true if the walk the app gives you will take you exactly ten minutes (you don't want to be early or late!) and will, of course, return you to your starting point. 
+//Return false otherwise.
+
+
+//I can't believe I finally figured this one out
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class Kata
+{
+  public static bool IsValidWalk(string[] walk)
+  {
+    var list = new List<string>(walk);
+    return (list.Count(x=>x == "n") == list.Count(x=>x =="s")) && (list.Count(x=>x == "e") ==list.Count(x=>x== "w")) && walk.Length == 10 ? true : false;
+  }
+}
+
+
+
+//tests
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    private static Random rnd = new Random();
+  
+    private static string[][] pass = new string[][]
+    {
+      new string[] {"n","s","n","s","n","s","n","s","n","s"},
+      new string[] {"e","w","e","w","n","s","n","s","e","w"},
+      new string[] {"n","s","e","w","n","s","e","w","n","s"}
+    };
+    
+    private static string[][] fail = new string[][]
+    {
+      new string[] {"n"},
+      new string[] {"n","s"},
+      new string[] {"n","s","n","s","n","s","n","s","n","s","n","s"},
+      new string[] {"n","s","e","w","n","s","e","w","n","s","e","w","n","s","e","w"},
+      new string[] {"n","s","n","s","n","s","n","s","n","n"},
+      new string[] {"e","e","e","w","n","s","n","s","e","w"},
+      new string[] {"n","n","n","n","n","e","e","e","e","e"},
+      new string[] {"s","s","s","s","s","w","w","w","w","w"},
+      new string[] {"n","n","n","n","n","w","w","w","w","w"},
+      new string[] {"s","s","s","s","s","e","e","e","e","e"},
+    };
+    
+    private static object[] testCases = new object[]
+    {
+      new object[] {fail[0], false, "should return false if walk is too short"},
+      new object[] {fail[1], false, "should return false if walk is too short"},
+      new object[] {fail[2], false, "should return false if walk is too long"},
+      new object[] {fail[3], false, "should return false if walk is too long"},
+      new object[] {fail[4], false, "should return false if walk does not bring you back to start"},
+      new object[] {fail[5], false, "should return false if walk does not bring you back to start"},
+      new object[] {fail[6], false, "should return false if walk does not bring you back to start"},
+      new object[] {fail[7], false, "should return false if walk does not bring you back to start"},
+      new object[] {fail[8], false, "should return false if walk does not bring you back to start"},
+      new object[] {fail[9], false, "should return false if walk does not bring you back to start"},
+      new object[] {pass[0], true, "should return true for a valid walk"},
+      new object[] {pass[1], true, "should return true for a valid walk"},
+      new object[] {pass[2], true, "should return true for a valid walk"},
+    }.OrderBy(_ => rnd.Next()).ToArray();
+  
+    private static IEnumerable<TestCaseData> testCasesSource
+    {
+      get
+      {
+        foreach (object[] testCase in testCases)
+        {
+          yield return new TestCaseData(testCase[0]).Returns(testCase[1]).SetDescription(testCase[2] as string);
+        }
+      }
+    }
+  
+    [Test, TestCaseSource("testCasesSource")]
+    public bool Walk_Validator(string[] test) => Kata.IsValidWalk(test);
+  }
+}
