@@ -1,0 +1,55 @@
+//8 kyu
+//You have to write a function that accepts three parameters:
+
+//cap is the amount of people the bus can hold excluding the driver.
+//on is the number of people on the bus.
+//wait is the number of people waiting to get on to the bus.
+//If there is enough space, return 0, and if there isn't, return the number of passengers he can't take.
+
+using System;
+
+public static class Kata
+{
+  public static int Enough(int cap, int on, int wait)
+  {
+    if (on + wait <= cap) {return 0;} else {return on + wait - cap;}
+  }
+}
+
+//tests
+
+namespace Solution 
+{
+  using NUnit.Framework;
+  using System;
+  public static class Solution
+  {
+    public static int Enough(int cap, int on, int wait) =>
+      Math.Max(0, on + wait - cap);
+  }
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void SampleTest()
+    {
+      Assert.AreEqual(0, Kata.Enough(10, 5, 5));
+      Assert.AreEqual(10, Kata.Enough(100, 60, 50));
+    }
+    [Test]
+    public void RandomTest()
+    {
+      Random rnd = new Random();
+      
+      for (int i = 0; i < 100; ++i)
+      {
+        int a = rnd.Next(50, 100),
+            b = rnd.Next(0, 80),
+            c = rnd.Next(0, 80);
+            
+        Assert.AreEqual(Solution.Enough(a, b, c), Kata.Enough(a, b, c));
+      }
+    }
+  }
+}
