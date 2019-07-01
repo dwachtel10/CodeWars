@@ -1,0 +1,65 @@
+//7 kyu
+//Write a function named repeater() that takes two arguments 
+//(a string and a number), and returns a new string where the input string is repeated that many times.
+
+public class Kata
+{
+  public static string Repeater(string s, int n)
+  {
+    string final = "";
+    for(int i = 1; i <= n; i++)
+      {
+        final += s;
+      }
+    return final;
+  }
+
+}
+
+//test
+
+namespace Solution {
+  using NUnit.Framework;
+  using System;
+
+  [TestFixture]
+  public class SolutionTest
+  {
+    [Test]
+    public void BasicTests()
+    {
+      Assert.AreEqual("aaaaa", Kata.Repeater("a", 5));
+      Assert.AreEqual("NaNaNaNaNaNaNaNaNaNaNaNaNaNaNaNa", Kata.Repeater("Na", 16));
+      Assert.AreEqual("Wub Wub Wub Wub Wub Wub ", Kata.Repeater("Wub ", 6));
+    }
+    
+    private static string MyRepeater(string s, int n)
+    {
+      string res = "";
+      for(int i = 0; i < n; i++)
+        res += s;
+      return res;
+    }
+    
+    [Test]
+    public void MoreTests()
+    {
+      Assert.AreEqual(MyRepeater("la", 12), Kata.Repeater("la", 12));
+      Assert.AreEqual(MyRepeater("dance\n", 3), Kata.Repeater("dance\n", 3));
+      Assert.AreEqual(MyRepeater("A stopped clock is right twice a day. ", 2), Kata.Repeater("A stopped clock is right twice a day. ", 2));
+      Assert.AreEqual(MyRepeater("nine", 9), Kata.Repeater("nine", 9));
+    }
+    
+    [Test]
+    public void RandomTests()
+    {
+      Random rnd = new Random();
+      string[] words = "This is an array of random String".Split();
+      for(int i = 0; i <= 100; i++){
+        string word = words[rnd.Next(words.Length)];
+        int n = rnd.Next(11);
+        Assert.AreEqual(MyRepeater(word, n), Kata.Repeater(word, n));
+      }
+    }
+  }
+}
