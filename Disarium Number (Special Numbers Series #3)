@@ -1,0 +1,73 @@
+//7 kyu
+//Disarium number is the number that The sum of its digits powered with their respective positions is equal to the number itself.
+//Given a number, Find if it is Disarium or not .
+
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+class Kata
+{
+    public static string DisariumNumber(int number)
+    {    
+        int counter = 1;
+        int total = 0;
+        int[] digits = number.ToString().ToCharArray().Select(x=>(int)Char.GetNumericValue(x)).ToArray();
+        foreach (int i in digits)
+          {
+            total += Convert.ToInt32(Math.Pow(Convert.ToDouble(i), Convert.ToDouble(counter)));
+            counter++;
+          }
+        if (total == number)
+            {
+              return "Disarium !!";
+            }
+            else
+            {
+              return "Not !!";
+            }
+    }
+}
+
+//test
+using NUnit.Framework;
+using System;
+using System.Linq;
+
+[TestFixture]
+class Tests
+{
+    [TestCase(89, "Disarium !!")]
+    [TestCase(564, "Not !!")]
+    [TestCase(1024, "Not !!")]
+    [TestCase(135, "Disarium !!")]
+    [TestCase(136586, "Not !!")]
+    public void BasicTests(int number, string expected)
+    {
+        Assert.That(Kata.DisariumNumber(number), Is.EqualTo(expected));
+    }
+    [Test]
+    public void RandomTests()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            var number = FindNumber();
+            var expected = SolutionDisariumNumber(number);
+            Assert.That(Kata.DisariumNumber(number), Is.EqualTo(expected));
+        }
+    }
+
+    int FindNumber()
+    {
+        var rnd = new Random();
+        var b = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 89, 135, 175, 518, 598, 1306, 1676, 2427, 2646798 };
+        return rnd.Next(0, 2) == 0 ? rnd.Next(1, 1000000) : b[rnd.Next(0, b.Length)];
+    }
+
+    string SolutionDisariumNumber(int number)
+    {
+        var a = number.ToString().Select(x => Convert.ToInt32(x) - '0').ToArray();
+        var sum = a.Select((x, i) => Math.Pow(x, i + 1)).Sum();
+        return sum == number ? "Disarium !!" : "Not !!";
+    }
+}
