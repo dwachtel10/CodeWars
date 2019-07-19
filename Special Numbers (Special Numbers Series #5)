@@ -1,0 +1,63 @@
+//7 kyu
+//A number is a Special Number if it’s digits only consist 0, 1, 2, 3, 4 or 5
+//Given a number determine if it special number or not .
+
+using System;
+using System.Text.RegularExpressions;
+class Kata
+{
+    public static string SpecialNumber(int number)
+    {
+        string strNum = number.ToString();
+        Regex rx = new Regex(@"[^0-5]");
+        MatchCollection matches = rx.Matches(strNum);
+        if (matches.Count == 0)
+        { return "Special!!";}
+        else
+        {return "NOT!!";}
+    }
+}
+
+//tests
+using System;
+using System.Linq;
+using NUnit.Framework;
+
+[TestFixture]
+class Tests
+{
+    [TestCase(00002)]
+    [TestCase(00003)]
+    [TestCase(00011)]
+    [TestCase(00055)]
+    [TestCase(25432)]
+    public void Special(int number)
+    {
+        Assert.That(Kata.SpecialNumber(number), Is.EqualTo("Special!!"));
+    }
+    [TestCase(02783)]
+    [TestCase(00006)]
+    [TestCase(00009)]
+    [TestCase(00026)]
+    [TestCase(00092)]
+    public void NotSpecial(int number)
+    {
+        Assert.That(Kata.SpecialNumber(number), Is.EqualTo("NOT!!"));
+    }
+    [Test]
+    public void RandomTests()
+    {
+        var rnd = new Random();
+        for (int i = 0; i < 100; i++)
+        {
+            var number = rnd.Next(1, 10000);
+            var expected = SolutionSpecialNumber(number);
+            Assert.That(Kata.SpecialNumber(number), Is.EqualTo(expected));
+        }
+    }
+    static string SolutionSpecialNumber(int number)
+    {
+        var a = number.ToString().Select(x => Convert.ToInt32(x) - '0').ToArray();
+        return a.All(x => x <= 5) ? "Special!!" : "NOT!!";
+    }
+}
